@@ -12,6 +12,7 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
+      font-size: 15px;
     }
 
     #sidebar {
@@ -44,7 +45,7 @@
       color: white;
       display: flex;
       align-items: center;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 0.4rem;
       white-space: nowrap;
       transition: background-color 0.2s;
     }

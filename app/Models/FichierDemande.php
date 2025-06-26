@@ -9,6 +9,7 @@ class FichierDemande extends Model
     protected $fillable = [
         'demande_id',
         'chemin',
+        'type',
     ];
 
     public function demande()

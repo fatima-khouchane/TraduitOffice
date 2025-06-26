@@ -133,93 +133,140 @@
           </div>
           <button type="button" class="btn btn-secondary" id="add_file_btn">+ Ajouter un autre fichier</button>
 
+
           <!-- Submit -->
           <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+
         </form>
+
       </div>
     </div>
   </div>
 </div>
 <script>
-  const sousTypes = {
-    administratif: [ "Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance", "Copie intégrale d’acte de naissance", "Extrait du casier judiciaire", "Attestation de travail", "Attestation de salaire", "Attestation de prise en charge", "Certificat de scolarité", "Certificat de radiation", "Certificat de non-inscription au commerce", "Certificat de capacité d’inscription", "Bulletin de notes (système Bac marocain)", "Bulletin de notes (système scolaire étranger)", "Copies supplémentaires / page" ],
-    medical: [ "Certificat médical", "Dossier médical" ],
-    notaire: [ "Acte de mariage", "Acte notarié", "Acte de naissance", "Jugement de divorce", "Jugement étranger exequatur", "Jugement d’adoption", "Acte de tutelle", "Acte de kafala", "Décision d’expulsion", "Jugement étranger avant 2004", "Jugement étranger après la famille 2004", "Jugement étranger divers (divorces irrévocables)", "Acte de répudiation", "Acte de désistement", "Kafala", "Acte de prise en charge", "Procuration", "Remise d’enfants", "Acte d’hérédité", "Inventaire successoral", "Partage successoral", "Acte d’achat / vente", "Copies supplémentaires / page" ],
-    etranger: [ "Copie intégrale d’acte de naissance", "Acte de naissance", "Certificat de capacité à mariage", "Certificat de divorce", "Extrait du casier judiciaire", "Attestation de célibat", "Certificat de résidence", "Acte de mariage" ],
-    dossier: [ "Jugements", "Actes notariés", "Procès-verbaux", "Statuts", "Dossiers techniques" ],
-    interprete: [ "Assemblées générales", "Conseils d’administration", "Séances de délibérations", "Débats aux audiences des tribunaux" ],
-    douane: [ "Déclaration en douane", "Facture commerciale", "Certificat d’origine", "Liste de colisage", "Document de transport" ]
-  };
+    const sousTypes = {
+      administratif: [
+        "Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance", "Copie intégrale d’acte de naissance",
+        "Extrait du casier judiciaire", "Attestation de travail", "Attestation de salaire", "Attestation de prise en charge",
+        "Certificat de scolarité", "Certificat de radiation", "Certificat de non-inscription au commerce",
+        "Certificat de capacité d’inscription", "Bulletin de notes (système Bac marocain)",
+        "Bulletin de notes (système scolaire étranger)", "Copies supplémentaires / page"
+      ],
+      medical: ["Certificat médical", "Dossier médical"],
+      notaire: [
+        "Acte de mariage", "Acte notarié", "Acte de naissance", "Jugement de divorce", "Jugement étranger exequatur",
+        "Jugement d’adoption", "Acte de tutelle", "Acte de kafala", "Décision d’expulsion",
+        "Jugement étranger avant 2004", "Jugement étranger après la famille 2004",
+        "Jugement étranger divers (divorces irrévocables)", "Acte de répudiation", "Acte de désistement",
+        "Kafala", "Acte de prise en charge", "Procuration", "Remise d’enfants", "Acte d’hérédité",
+        "Inventaire successoral", "Partage successoral", "Acte d’achat / vente", "Copies supplémentaires / page"
+      ],
+      etranger: [
+        "Copie intégrale d’acte de naissance", "Acte de naissance", "Certificat de capacité à mariage",
+        "Certificat de divorce", "Extrait du casier judiciaire", "Attestation de célibat",
+        "Certificat de résidence", "Acte de mariage"
+      ],
+      dossier: ["Jugements", "Actes notariés", "Procès-verbaux", "Statuts", "Dossiers techniques"],
+      interprete: ["Assemblées générales", "Conseils d’administration", "Séances de délibérations", "Débats aux audiences des tribunaux"],
+      douane: ["Déclaration en douane", "Facture commerciale", "Certificat d’origine", "Liste de colisage", "Document de transport"]
+    };
 
-  function updateSousType(select) {
-    const group = select.closest('.document_group');
-    const sousSelect = group.querySelector('.sous_type_select');
-    const labelInput = group.querySelector('.categorie_label');
+    function updateSousType(select) {
+      const group = select.closest('.document_group');
+      const sousSelect = group.querySelector('.sous_type_select');
+      const labelInput = group.querySelector('.categorie_label');
 
-    sousSelect.innerHTML = '';
-    sousSelect.style.display = 'none';
+      sousSelect.innerHTML = '';
+      sousSelect.style.display = 'none';
 
-    const type = select.value;
-    const label = select.options[select.selectedIndex].text;
-    labelInput.value = label;
+      const type = select.value;
+      const label = select.options[select.selectedIndex].text;
+      labelInput.value = label;
 
-    if (sousTypes[type]) {
-      sousTypes[type].forEach(item => {
-        const opt = document.createElement('option');
-        opt.value = item;
-        opt.textContent = item;
-        sousSelect.appendChild(opt);
+      if (sousTypes[type]) {
+        sousTypes[type].forEach(item => {
+          const opt = document.createElement('option');
+          opt.value = item;
+          opt.textContent = item;
+          sousSelect.appendChild(opt);
+        });
+        sousSelect.style.display = 'block';
+      }
+    }
+
+    // Initialisation des catégories existantes
+    document.querySelectorAll('.categorie_select').forEach(select => {
+      select.addEventListener('change', function () {
+        updateSousType(this);
       });
-      sousSelect.style.display = 'block';
-    }
-  }
 
-  // Initialiser le premier groupe si sélection déjà faite
-  document.querySelectorAll('.categorie_select').forEach(select => {
-    select.addEventListener('change', function () {
-      updateSousType(this);
+      if (select.value !== '') {
+        updateSousType(select);
+      }
     });
 
-    // déclencher updateSousType au chargement
-    if (select.value !== '') {
-      updateSousType(select);
-    }
-  });
+    // Ajouter un autre document (sans file input)
+    document.getElementById('add_document').addEventListener('click', () => {
+      const container = document.getElementById('documents_container');
+      const original = container.querySelector('.document_group');
+      const clone = original.cloneNode(true);
 
-  // Ajouter un nouveau bloc
-  document.getElementById('add_document').addEventListener('click', () => {
-    const container = document.getElementById('documents_container');
-    const group = container.querySelector('.document_group');
-    const clone = group.cloneNode(true);
+      // Réinitialiser les champs
+      const categorieSelect = clone.querySelector('.categorie_select');
+      const labelInput = clone.querySelector('.categorie_label');
+      const sousSelect = clone.querySelector('.sous_type_select');
 
-    // Réinitialiser tous les champs
-    const newCategorie = clone.querySelector('.categorie_select');
-    const newLabel = clone.querySelector('.categorie_label');
-    const newSousType = clone.querySelector('.sous_type_select');
+      categorieSelect.value = '';
+      labelInput.value = '';
+      sousSelect.innerHTML = '';
+      sousSelect.style.display = 'none';
 
-    newCategorie.value = '';
-    newLabel.value = '';
-    newSousType.innerHTML = '';
-    newSousType.style.display = 'none';
+      // Réattacher l’événement
+      categorieSelect.addEventListener('change', function () {
+        updateSousType(this);
+      });
 
-    // Réattacher les événements
-    newCategorie.addEventListener('change', function () {
-      updateSousType(this);
+      // Bouton Annuler
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
+      cancelBtn.innerText = '✖ Supprimer';
+      cancelBtn.addEventListener('click', () => {
+        clone.remove();
+      });
+
+      clone.appendChild(cancelBtn);
+
+      container.appendChild(clone);
     });
 
-    container.appendChild(clone);
-  });
+    // Ajouter un autre fichier (indépendamment)
+    document.getElementById('add_file_btn').addEventListener('click', () => {
+      const container = document.getElementById('fichiers_container');
 
-document.getElementById('add_file_btn').addEventListener('click', function () {
-    const container = document.getElementById('fichiers_container');
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'fichiers[]';
-    input.classList.add('form-control', 'mt-2');
-    input.accept = 'application/pdf,image/*';
-    container.appendChild(input);
-  });
+      const wrapper = document.createElement('div');
+      wrapper.classList.add('d-flex', 'align-items-center', 'gap-2', 'mt-2');
+
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.name = 'fichiers[]';
+      input.classList.add('form-control');
+      input.accept = 'application/pdf,image/*';
+
+      const cancelBtn = document.createElement('button');
+      cancelBtn.type = 'button';
+      cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+      cancelBtn.innerText = '✖';
+
+      cancelBtn.addEventListener('click', () => {
+        wrapper.remove();
+      });
+
+      wrapper.appendChild(input);
+      wrapper.appendChild(cancelBtn);
+      container.appendChild(wrapper);
+    });
+  </script>
 
 
-</script>
 @endsection
