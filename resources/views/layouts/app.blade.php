@@ -16,30 +16,29 @@
     }
 
     #sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 220px;
-  background-color: #003566;
-  transition: width 0.3s;
-  overflow: hidden;
-  z-index: 1000;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 220px;
+      background-color: #003566;
+      transition: width 0.3s;
+      overflow: hidden;
+      z-index: 1000;
+    }
 
-#sidebar.compact {
-  width: 70px;
-}
+    #sidebar.compact {
+      width: 70px;
+    }
 
-.main-content {
-  margin-left: 220px;
-  transition: margin-left 0.3s;
-}
+    .main-content {
+      margin-left: 220px;
+      transition: margin-left 0.3s;
+    }
 
-.main-content.compact {
-  margin-left: 70px;
-}
-
+    .main-content.compact {
+      margin-left: 70px;
+    }
 
     #sidebar .nav-link {
       color: white;
@@ -119,23 +118,23 @@
     }
 
     #sidebar .nav-link.active {
-    background-color: #dee2e6;
-    color: #003566 !important;
-    font-weight: 600;
-}
+      background-color: #dee2e6;
+      color: #003566 !important;
+      font-weight: 600;
+    }
 
   </style>
 </head>
 <body>
     <div class="container mt-5">
         <nav id="sidebar" class="vh-100 border-end d-flex flex-column">
-      @include('layouts.sidebar')
-    </nav>
+          @include('layouts.sidebar')
+        </nav>
 
-    <main class="main-content p-4 d-flex justify-content-center align-items-center">
-        <main class="flex-grow-1">         @yield('content')
-    </main>
-  </div>
+        <main class="main-content p-4 d-flex justify-content-center align-items-center">
+          <main class="flex-grow-1">@yield('content')</main>
+        </main>
+    </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
@@ -143,9 +142,17 @@
     const toggleBtn = document.getElementById('toggleBtn');
     const mainContent = document.querySelector('.main-content');
 
+    // Au chargement, appliquer l’état compact stocké
+    if (localStorage.getItem('sidebar-compact') === 'true') {
+      sidebar.classList.add('compact');
+      mainContent.classList.add('compact');
+    }
+
     toggleBtn?.addEventListener('click', () => {
       sidebar.classList.toggle('compact');
       mainContent.classList.toggle('compact');
+      // Stocker l’état dans localStorage
+      localStorage.setItem('sidebar-compact', sidebar.classList.contains('compact'));
     });
   </script>
 </body>
