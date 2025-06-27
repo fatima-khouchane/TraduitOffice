@@ -117,6 +117,13 @@
     #sidebar .dropdown-menu {
       z-index: 9999;
     }
+
+    #sidebar .nav-link.active {
+    background-color: #dee2e6;
+    color: #003566 !important;
+    font-weight: 600;
+}
+
   </style>
 </head>
 <body>
