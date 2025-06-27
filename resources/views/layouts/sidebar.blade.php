@@ -43,17 +43,21 @@
 
     <hr class="border-light" />
 
-    <!-- Dropdown utilisateur -->
-    <div class="dropdown mt-auto">
-      <a href="#" class="user-section dropdown-toggle text-decoration-none" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://i.pravatar.cc/40" alt="user" width="32" height="32" class="rounded-circle" />
-        <span class="ms-2 label brand-text">Utilisateur</span>
-      </a>
-      <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="userDropdown">
-        <li><a class="dropdown-item" href="#">Profil</a></li>
-        <li><a class="dropdown-item" href="#">Paramètres</a></li>
+  <!-- Dropdown utilisateur -->
+<div class="dropdown mt-auto">
+    <a href="#" class="user-section dropdown-toggle text-decoration-none d-flex align-items-center" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="ms-2 label brand-text">{{ Auth::user()->name }}</span>
+        <i class="ms-2 bi bi-caret-down-fill"></i> <!-- Flèche vers le bas (optionnelle) -->
+    </a>
+
+    <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="userDropdown">
+        <li><a class="dropdown-item" href="{{ route('profil.edit') }}">Profil</a></li>
         <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">Déconnexion</a></li>
-      </ul>
-    </div>
-  </div>
+        <li>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="dropdown-item" type="submit">Déconnexion</button>
+            </form>
+        </li>
+    </ul>
+</div>

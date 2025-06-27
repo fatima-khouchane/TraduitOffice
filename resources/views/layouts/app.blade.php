@@ -120,13 +120,13 @@
   </style>
 </head>
 <body>
-  <div class="d-flex">
-    <nav id="sidebar" class="vh-100 border-end d-flex flex-column">
+    <div class="container mt-5">
+        <nav id="sidebar" class="vh-100 border-end d-flex flex-column">
       @include('layouts.sidebar')
     </nav>
 
-    <main class="main-content p-4">
-      @yield('content')
+    <main class="main-content p-4 d-flex justify-content-center align-items-center">
+        <main class="flex-grow-1">         @yield('content')
     </main>
   </div>
 
