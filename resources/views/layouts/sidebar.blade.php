@@ -25,7 +25,7 @@
       </li>
       <li class="nav-item mb-1">
         <a href="{{ route('suivi_demande.index') }}"
-           class="nav-link text-white {{ request()->routeIs('suivi_demande.*') ? 'active' : '' }}">
+           class="nav-link text-white {{ request()->routeIs('suivi_demande.index') ? 'active' : '' }}">
           <i class="bi bi-clock-history fs-5"></i>
           <span class="label ms-2">Suivi Demande</span>
         </a>
@@ -37,6 +37,7 @@
           <span class="label ms-2">Fichier Traduit</span>
         </a>
       </li>
+
       <li class="nav-item mb-1">
         <a href="#" class="nav-link text-white">
           <i class="bi bi-archive fs-5"></i>

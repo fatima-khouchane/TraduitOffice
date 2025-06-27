@@ -52,27 +52,36 @@
             </div>
             <div class="col-md-6 d-flex align-items-center gap-2">
                 <strong class="me-2">Status :</strong>
-                <select id="statusSelect" class="form-select form-select-sm w-auto"
-                        data-id="{{ $demande->id }}">
-                    <option value="en_cours" {{ $demande->status == 'en_cours' ? 'selected' : '' }}>En cours</option>
-                    <option value="terminee" {{ $demande->status == 'terminee' ? 'selected' : '' }}>Terminée</option>
-                    <option value="annulee" {{ $demande->status == 'annulee' ? 'selected' : '' }}>Annulée</option>
-                </select>
-                <span id="statusMessage" class="text-success small ms-2"></span>
+
+                @if(!$traduit)
+                    <select id="statusSelect" class="form-select form-select-sm w-auto"
+                            data-id="{{ $demande->id }}">
+                        <option value="en_cours" {{ $demande->status == 'en_cours' ? 'selected' : '' }}>En cours</option>
+                        <option value="terminee" {{ $demande->status == 'terminee' ? 'selected' : '' }}>Terminée</option>
+                        <option value="annulee" {{ $demande->status == 'annulee' ? 'selected' : '' }}>Annulée</option>
+                    </select>
+                    <span id="statusMessage" class="text-success small ms-2"></span>
+                @else
+                    <p class="mb-0 badge bg-success">{{ ucfirst($demande->status) }}</p>
+                @endif
             </div>
 
+
+            @if(!$traduit)
             <form action="{{ route('suivi_demande.uploadFiles', $demande->id) }}" method="POST" enctype="multipart/form-data"
                 class="col-md-12 mt-3" id="uploadField" style="display:none;">
-              @csrf
-              <label for="justificatif" class="form-label">Ajouter un ou plusieurs fichiers (PDF / Image)</label>
-              <input type="file"
-                     class="form-control mb-2"
-                     name="justificatif_termine[]"
-                     id="justificatif"
-                     accept="application/pdf,image/*"
-                     multiple>
-              <button type="submit" class="btn btn-success btn-sm mt-2">📤 Envoyer les fichiers</button>
-          </form>
+                @csrf
+                <label for="justificatif" class="form-label">Ajouter un ou plusieurs fichiers (PDF / Image)</label>
+                <input type="file"
+                       class="form-control mb-2"
+                       name="justificatif_termine[]"
+                       id="justificatif"
+                       accept="application/pdf,image/*"
+                       multiple required>
+                <button type="submit" class="btn btn-success btn-sm mt-2">📤 Envoyer les fichiers</button>
+            </form>
+        @endif
+
 
 
 
@@ -94,31 +103,51 @@
 
         <div class="mb-4">
             <strong>Fichiers justificatifs :</strong>
-            @if($demande->fichiers->count() > 0)
-            <ul class="list-group">
-                @foreach($demande->fichiers as $fichier)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span class="flex-grow-1">{{ basename($fichier->chemin) }}</span>
-                        <div class="d-flex gap-2">
-                            <!-- Lien pour voir (afficher dans le navigateur) -->
-                            <a href="{{ asset('storage/' . $fichier->chemin) }}" target="_blank" class="btn btn-sm btn-info">
-                                Voir
-                            </a>
 
-                            <!-- Lien pour télécharger (appelle une route qui force le download) -->
-                            <a href="{{ route('suivi_demande.download', ['id' => $demande->id, 'fichierId' => $fichier->id]) }}" class="btn btn-sm btn-primary">
-                                Télécharger
-                            </a>
-                        </div>
-                    </li>
-                @endforeach
-            </ul>
+            @php
+                $fichiers_initial = $demande->fichiers->where('type', 'initial');
+                $fichiers_final = $demande->fichiers->where('type', 'final');
+            @endphp
 
+            <div class="mb-3">
+                <h6>📄 Documents AVANT traduction :</h6>
+                @if($fichiers_initial->count() > 0)
+                <ul class="list-group">
+                    @foreach($fichiers_initial as $fichier)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="flex-grow-1">{{ basename($fichier->chemin) }}</span>
+                            <div class="d-flex gap-2">
+                                <a href="{{ asset('storage/' . $fichier->chemin) }}" target="_blank" class="btn btn-sm btn-info">Voir</a>
+                                <a href="{{ route('suivi_demande.download', ['id' => $demande->id, 'fichierId' => $fichier->id]) }}" class="btn btn-sm btn-primary">Télécharger</a>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+                @else
+                    <p class="fst-italic text-muted">Aucun fichier initial disponible.</p>
+                @endif
+            </div>
 
-            @else
-                <p class="fst-italic text-muted">Aucun fichier disponible.</p>
-            @endif
+            <div>
+                <h6>✅ Documents APRÈS traduction :</h6>
+                @if($fichiers_final->count() > 0)
+                <ul class="list-group">
+                    @foreach($fichiers_final as $fichier)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span class="flex-grow-1">{{ basename($fichier->chemin) }}</span>
+                            <div class="d-flex gap-2">
+                                <a href="{{ asset('storage/' . $fichier->chemin) }}" target="_blank" class="btn btn-sm btn-info">Voir</a>
+                                <a href="{{ route('suivi_demande.download', ['id' => $demande->id, 'fichierId' => $fichier->id]) }}" class="btn btn-sm btn-primary">Télécharger</a>
+                            </div>
+                        </li>
+                    @endforeach
+                </ul>
+                @else
+                    <p class="fst-italic text-muted">Aucun fichier final disponible.</p>
+                @endif
+            </div>
         </div>
+
 
         <div class="text-center">
             <a href="{{ route('suivi_demande.index') }}" class="btn btn-outline-secondary">

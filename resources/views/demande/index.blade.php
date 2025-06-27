@@ -58,7 +58,7 @@
                           </td>
 
                         <td class="text-center">
-                            <a href="{{ route('suivi_demande.show', $demande->id) }}" class="btn btn-sm btn-info" title="Voir les détails">
+                            <a href="{{ route('suivi_demande.show', ['id' => $demande->id, 'traduit' => false]) }}" class="btn btn-sm btn-info" title="Voir les détails">
                                 <i class="bi bi-eye"></i>
                             </a>
                             <a href="{{ route('suivi_demande.edit', $demande->id) }}" class="btn btn-sm btn-warning ms-2" title="Modifier la demande">

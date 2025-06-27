@@ -4,12 +4,9 @@
 
 @section('content')
 <div class="container-fluid">
-  <div class="row">
-    <!-- Si tu as une sidebar dans layouts.app, elle prend déjà un col (par ex. col-md-2) -->
-
-    <!-- Formulaire centré -->
-    <div class="col-md-10 offset-md-2 d-flex justify-content-center">
-      <div class="card shadow p-4 my-4" style="width: 100%; width: 900px;">
+  <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="col-md-10 d-flex justify-content-center">
+      <div class="card shadow p-4 my-4" style="width: 100%; max-width: 900px;">
         <h2 class="mb-4 text-center">Créer une nouvelle demande</h2>
 
         @if (session('success'))
@@ -29,7 +26,6 @@
         <form action="{{ route('demande.store') }}" method="POST" enctype="multipart/form-data">
           @csrf
 
-          <!-- Nom / Prénom -->
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Nom</label>
@@ -41,7 +37,6 @@
             </div>
           </div>
 
-          <!-- CIN / Téléphone -->
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">N° Carte Nationale</label>
@@ -53,7 +48,6 @@
             </div>
           </div>
 
-          <!-- Dates -->
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Date début</label>
@@ -65,7 +59,6 @@
             </div>
           </div>
 
-          <!-- Bloc documents -->
           <div id="documents_container">
             <div class="document_group mb-3 row align-items-end">
               <div class="col-md-6">
@@ -91,7 +84,6 @@
 
           <button type="button" id="add_document" class="btn btn-secondary mb-3">+ Ajouter un autre document</button>
 
-          <!-- Prix + Langues -->
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Prix total</label>
@@ -118,13 +110,11 @@
             </div>
           </div>
 
-          <!-- Remarque -->
           <div class="mb-3">
             <label class="form-label">Remarque (optionnel)</label>
             <textarea name="remarque" rows="3" class="form-control"></textarea>
           </div>
 
-          <!-- Fichiers -->
           <div id="fichiers_container">
             <div class="mb-3">
               <label class="form-label">Fichier justificatif</label>
@@ -133,16 +123,14 @@
           </div>
           <button type="button" class="btn btn-secondary" id="add_file_btn">+ Ajouter un autre fichier</button>
 
-
-          <!-- Submit -->
-          <button type="submit" class="btn btn-primary">Envoyer la demande</button>
+          <button type="submit" class="btn btn-primary mt-3">Envoyer la demande</button>
 
         </form>
-
       </div>
     </div>
   </div>
 </div>
+
 <script>
     const sousTypes = {
       administratif: [

@@ -106,11 +106,14 @@ class DemandeController extends Controller
      * Display the specified resource.
      */
     // Dans DemandeController.php
-    public function show($id)
+    public function show($id, Request $request)
     {
-        $demande = Demande::findOrFail($id);
-        return view('demande.show', compact('demande'));
+        $demande = Demande::with('fichiers')->findOrFail($id);
+        $traduit = $request->query('traduit', false); // récupère ?traduit=true ou false
+
+        return view('demande.show', compact('demande', 'traduit'));
     }
+
 
 
     /**
