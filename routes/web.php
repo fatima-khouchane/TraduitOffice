@@ -4,6 +4,7 @@ use App\Http\Controllers\DemandeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StatistiqueController;
 use Illuminate\Support\Facades\Auth;
 
 // login
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::get('/demande_termine', [DemandeController::class, 'index2'])->name('suivi_demande.index2'); // affiche table de suivi
+
+    Route::get('/statistique', [StatistiqueController::class, 'index'])->name('statistique'); // affiche table de suivi
 
 });
 

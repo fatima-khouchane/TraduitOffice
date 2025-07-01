@@ -9,13 +9,13 @@
 
     <!-- Liens navigation -->
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item mb-1">
+      {{-- <li class="nav-item mb-1">
         <a href="{{ route('dashboard') }}"
            class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
           <i class="bi bi-house-door-fill fs-5"></i>
           <span class="label ms-2">Accueil</span>
         </a>
-      </li>
+      </li> --}}
       <li class="nav-item mb-1">
         <a href="{{ route('demande.create') }}"
            class="nav-link text-white {{ request()->routeIs('demande.create') ? 'active' : '' }}">
@@ -39,9 +39,11 @@
       </li>
 
       <li class="nav-item mb-1">
-        <a href="#" class="nav-link text-white">
-          <i class="bi bi-archive fs-5"></i>
-          <span class="label ms-2">Archives</span>
+        <a href="{{ route('statistique') }}"
+        class="nav-link text-white {{ request()->routeIs('statistique') ? 'active' : '' }}">
+        <i class="bi bi-graph-up fs-5"></i>
+<span class="label ms-2">Statistique</span>
+
         </a>
       </li>
     </ul>

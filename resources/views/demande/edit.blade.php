@@ -230,38 +230,65 @@
   });
 
   // Ajouter un nouveau bloc document
-  document.getElementById('add_document').addEventListener('click', () => {
-    const container = document.getElementById('documents_container');
-    const group = container.querySelector('.document_group');
-    const clone = group.cloneNode(true);
+ // Ajouter un nouveau bloc document
+document.getElementById('add_document').addEventListener('click', () => {
+  const container = document.getElementById('documents_container');
+  const group = container.querySelector('.document_group');
+  const clone = group.cloneNode(true);
 
-    const newCategorie = clone.querySelector('.categorie_select');
-    const newLabel = clone.querySelector('.categorie_label');
-    const newSousType = clone.querySelector('.sous_type_select');
+  const newCategorie = clone.querySelector('.categorie_select');
+  const newLabel = clone.querySelector('.categorie_label');
+  const newSousType = clone.querySelector('.sous_type_select');
 
-    newCategorie.value = '';
-    newLabel.value = '';
-    newSousType.innerHTML = '';
-    newSousType.style.display = 'none';
+  newCategorie.value = '';
+  newLabel.value = '';
+  newSousType.innerHTML = '';
+  newSousType.style.display = 'none';
 
-    newCategorie.addEventListener('change', function () {
-      updateSousType(this);
-    });
-
-    container.appendChild(clone);
+  newCategorie.addEventListener('change', function () {
+    updateSousType(this);
   });
+
+  // Bouton Supprimer
+  const cancelBtn = document.createElement('button');
+  cancelBtn.type = 'button';
+  cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
+  cancelBtn.textContent = '✖ Supprimer';
+  cancelBtn.addEventListener('click', () => {
+    clone.remove();
+  });
+
+  clone.appendChild(cancelBtn);
+  container.appendChild(clone);
+});
 
   // Ajouter un nouveau fichier
-  document.getElementById('add_file_btn').addEventListener('click', function () {
-    const container = document.getElementById('fichiers_container');
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'fichiers[]';
-    input.classList.add('form-control', 'mt-2');
-    input.accept = 'application/pdf,image/*';
-    container.appendChild(input);
+ // Ajouter un nouveau fichier
+document.getElementById('add_file_btn').addEventListener('click', function () {
+  const container = document.getElementById('fichiers_container');
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('d-flex', 'align-items-center', 'gap-2', 'mt-2');
+
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.name = 'fichiers[]';
+  input.classList.add('form-control');
+  input.accept = 'application/pdf,image/*';
+
+  const cancelBtn = document.createElement('button');
+  cancelBtn.type = 'button';
+  cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm');
+  cancelBtn.textContent = '✖';
+
+  cancelBtn.addEventListener('click', () => {
+    wrapper.remove();
   });
 
+  wrapper.appendChild(input);
+  wrapper.appendChild(cancelBtn);
+  container.appendChild(wrapper);
+});
 
   document.getElementById('deleteFichiersForm').addEventListener('submit', function (e) {
     const checkboxes = document.querySelectorAll('.delete-checkbox:checked');

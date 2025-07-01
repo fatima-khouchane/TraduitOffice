@@ -3,6 +3,18 @@
 @section('title', "Détail de la demande #{$demande->id}")
 
 @section('content')
+@php
+    $categorieLabels = [
+        'administratif' => '📌 1. PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE',
+        'medical'       => '🩺 2. CERTIFICATS MÉDICAUX / PAGE',
+        'notaire'       => '📄 3. PIÈCES NOTARIÉES OU ADMINISTRATIVES / PAGE',
+        'etranger'      => '🌍 4. PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE',
+        'dossier'       => '📚 5. DOSSIERS (2 à 10 pages, 240 mots / page)',
+        'interprete'    => '🎤 6. INTERPRÉTARIAT (SIMULTANÉ OU CONSÉCUTIF)',
+        'douane'        => '📦 7. PIÈCES DOUANIÈRES / PAGE',
+    ];
+@endphp
+
 <div class="container my-5 justify-content-center">
     <div class="card shadow-sm p-4" style="width: 900px; margin:0 auto;">
         <h2 class="mb-4 text-center">Détail de la demande</h2>
@@ -38,12 +50,14 @@
             <strong>Documents :</strong>
             <ul>
                 @foreach($demande->documents ?? [] as $doc)
-                    <li>
-                        <strong>Catégorie :</strong> {{ ucfirst($doc['categorie'] ?? '') }}<br>
+                    <li class="mb-2">
+                        <strong>Catégorie :</strong>
+                        {{ $categorieLabels[$doc['categorie'] ?? ''] ?? ucfirst($doc['categorie'] ?? 'Non spécifiée') }}<br>
                         <strong>Sous-type :</strong> {{ $doc['sous_type'] ?? '—' }}
                     </li>
                 @endforeach
             </ul>
+
         </div>
 
         <div class="row mb-3">

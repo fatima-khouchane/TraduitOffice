@@ -133,13 +133,13 @@
 
 <script>
     const sousTypes = {
-      administratif: [
-        "Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance", "Copie intégrale d’acte de naissance",
-        "Extrait du casier judiciaire", "Attestation de travail", "Attestation de salaire", "Attestation de prise en charge",
-        "Certificat de scolarité", "Certificat de radiation", "Certificat de non-inscription au commerce",
-        "Certificat de capacité d’inscription", "Bulletin de notes (système Bac marocain)",
-        "Bulletin de notes (système scolaire étranger)", "Copies supplémentaires / page"
-      ],
+        administratif: [
+            "Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance", "Copie intégrale d’acte de naissance",
+            "Extrait du casier judiciaire", "Attestation de travail", "Attestation de salaire", "Attestation de prise en charge",
+            "Certificat de scolarité", "Certificat de radiation", "Certificat de non-inscription au commerce",
+            "Certificat de capacité d’inscription", "Bulletin de notes (système Bac marocain)",
+            "Bulletin de notes (système scolaire étranger)", "Copies supplémentaires / page"
+        ],
       medical: ["Certificat médical", "Dossier médical"],
       notaire: [
         "Acte de mariage", "Acte notarié", "Acte de naissance", "Jugement de divorce", "Jugement étranger exequatur",

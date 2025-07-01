@@ -272,4 +272,6 @@ class DemandeController extends Controller
         return redirect()->route('suivi_demande.index')->with('success', 'Demande supprimée avec succès.');
     }
 
+
+
 }
