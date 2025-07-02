@@ -49,6 +49,16 @@
         </ul>
     </div>
 
+
+    <form method="GET" action="{{ route('statistique') }}" class="mb-4 d-flex justify-content-end">
+        <div class="input-group" style="max-width: 200px;">
+            <label class="input-group-text" for="annee">📅 Année</label>
+            <input type="number" min="2000" max="{{ now()->year }}" step="1" name="annee" id="annee" class="form-control"
+                   value="{{ request('annee', now()->year) }}" onchange="this.form.submit()">
+        </div>
+    </form>
+
+
     <!-- Graphe évolution mensuelle -->
     <div class="card bg-white shadow-lg border-0 rounded-4 p-4 mb-5">
         <h5 class="mb-4 fw-bold text-center">📈 Évolution mensuelle des fichiers traduits</h5>

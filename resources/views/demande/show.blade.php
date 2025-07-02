@@ -84,16 +84,17 @@
             @if(!$traduit)
             <form action="{{ route('suivi_demande.uploadFiles', $demande->id) }}" method="POST" enctype="multipart/form-data"
                 class="col-md-12 mt-3" id="uploadField" style="display:none;">
-                @csrf
-                <label for="justificatif" class="form-label">Ajouter un ou plusieurs fichiers (PDF / Image)</label>
-                <input type="file"
-                       class="form-control mb-2"
-                       name="justificatif_termine[]"
-                       id="justificatif"
-                       accept="application/pdf,image/*"
-                       multiple required>
-                <button type="submit" class="btn btn-success btn-sm mt-2">📤 Envoyer les fichiers</button>
-            </form>
+              @csrf
+              <label for="justificatif" class="form-label">Ajouter un ou plusieurs fichiers (PDF / Image)</label>
+              <input type="file"
+                     class="form-control mb-2"
+                     name="justificatif_termine[]"
+                     id="justificatif"
+                     accept="application/pdf,image/*"
+                     multiple required>
+              <button type="submit" class="btn btn-success btn-sm mt-2">📤 Envoyer les fichiers</button>
+          </form>
+
         @endif
 
 
@@ -164,9 +165,15 @@
 
 
         <div class="text-center">
+            @if(!$traduit)
             <a href="{{ route('suivi_demande.index') }}" class="btn btn-outline-secondary">
                 ← Retour à la liste
             </a>
+            @else
+            <a href="{{ route('suivi_demande.index2') }}" class="btn btn-outline-secondary">
+                ← Retour à la liste
+            </a>
+            @endif
         </div>
     </div>
 </div>

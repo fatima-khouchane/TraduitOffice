@@ -37,7 +37,7 @@ class StatistiqueController extends Controller
 
         $mois = [];
         $valeurs = [];
-        $annee = now()->year;
+        $annee = request('annee', now()->year);
 
         for ($i = 1; $i <= 12; $i++) {
             $date = Carbon::createFromDate($annee, $i, 1);

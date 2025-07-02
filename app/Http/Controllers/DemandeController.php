@@ -236,20 +236,28 @@ class DemandeController extends Controller
 
     public function uploadFiles(Request $request, $id)
     {
-        logger('UploadFiles called', ['files' => $request->file('justificatif_termine')]);
-
         $request->validate([
             'justificatif_termine' => 'required',
-            'justificatif_termine.*' => 'file|mimes:pdf,jpeg,png,jpg,gif,svg|max:2048',
+            'justificatif_termine.*' => 'file|mimes:pdf,jpeg,png,jpg,gif,svg|max:20480', // 20MB par fichier
         ]);
+
+        // Vérifier la taille totale des fichiers (max 50 Mo par exemple)
+        $totalSize = 0;
+        foreach ($request->file('justificatif_termine') as $file) {
+            $totalSize += $file->getSize();
+        }
+
+        if ($totalSize > 50 * 1024 * 1024) { // 50 Mo
+            return back()->withErrors(['La taille totale des fichiers dépasse 50 Mo.']);
+        }
 
         $demande = Demande::findOrFail($id);
 
         if ($request->hasFile('justificatif_termine')) {
             foreach ($request->file('justificatif_termine') as $file) {
-
                 $originalName = $file->getClientOriginalName();
                 $path = $file->storeAs('fichiers', $originalName, 'public');
+
                 $demande->fichiers()->create([
                     'chemin' => $path,
                     'type' => 'final',
