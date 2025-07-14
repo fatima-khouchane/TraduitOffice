@@ -8,73 +8,68 @@
     </div>
 
     <!-- Liens navigation -->
-    <ul class="nav nav-pills flex-column mb-auto">
-      {{-- <li class="nav-item mb-1">
-        <a href="{{ route('dashboard') }}"
-           class="nav-link text-white {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-          <i class="bi bi-house-door-fill fs-5"></i>
-          <span class="label ms-2">Accueil</span>
-        </a>
-      </li> --}}
-          @if(Auth::user()->role === 'admin')
-      <li class="nav-item mb-1">
+   <ul class="nav nav-pills flex-column mb-auto">
+
+    @if(Auth::user()->role === 'admin')
+    <!-- 1. Nouvelle Demande -->
+    <li class="nav-item mb-1">
         <a href="{{ route('demande.create') }}"
            class="nav-link text-white {{ request()->routeIs('demande.create') ? 'active' : '' }}">
-          <i class="bi bi-plus-circle fs-5"></i>
-          <span class="label ms-2">Nouvelle Demande</span>
+            <i class="bi bi-plus-circle fs-5"></i>
+            <span class="label ms-2">Nouvelle Demande</span>
         </a>
-      </li>
-      <li class="nav-item mb-1">
+    </li>
+    @endif
+
+    <!-- 2. Suivi Demande -->
+    <li class="nav-item mb-1">
         <a href="{{ route('suivi_demande.index') }}"
            class="nav-link text-white {{ request()->routeIs('suivi_demande.index') ? 'active' : '' }}">
-          <i class="bi bi-clock-history fs-5"></i>
-          <span class="label ms-2">Suivi Demande</span>
+            <i class="bi bi-clock-history fs-5"></i>
+            <span class="label ms-2">Suivi Demande</span>
         </a>
-      </li>
-      <li class="nav-item mb-1">
+    </li>
+
+    <!-- 3. Fichier Traduit -->
+    <li class="nav-item mb-1">
         <a href="{{ route('suivi_demande.index2') }}"
            class="nav-link text-white {{ request()->routeIs('suivi_demande.index2') ? 'active' : '' }}">
-          <i class="bi bi-file-earmark-text fs-5"></i>
-          <span class="label ms-2">Fichier Traduit</span>
+            <i class="bi bi-file-earmark-text fs-5"></i>
+            <span class="label ms-2">Fichier Traduit</span>
         </a>
-      </li>
+    </li>
 
-      <li class="nav-item mb-1">
+    @if(Auth::user()->role === 'admin')
+    <!-- 4. Ajouter un traducteur -->
+    <li class="nav-item mb-1">
+        <a href="{{ route('admin.translators.create') }}"
+           class="nav-link text-white {{ request()->routeIs('admin.translators.create') ? 'active' : '' }}">
+            <i class="bi bi-person-plus fs-5"></i>
+            <span class="label ms-2">Ajouter un traducteur</span>
+        </a>
+    </li>
+
+    <!-- 5. Liste des traducteurs -->
+    <li class="nav-item mb-1">
+        <a href="{{ route('translator.index') }}"
+           class="nav-link text-white {{ request()->routeIs('translator.index') ? 'active' : '' }}">
+            <i class="bi bi-people fs-5"></i>
+            <span class="label ms-2">Liste des traducteurs</span>
+        </a>
+    </li>
+
+    <!-- 6. Statistique -->
+    <li class="nav-item mb-1">
         <a href="{{ route('statistique') }}"
-        class="nav-link text-white {{ request()->routeIs('statistique') ? 'active' : '' }}">
-        <i class="bi bi-graph-up fs-5"></i>
-        <span class="label ms-2">Statistique</span>
-
+           class="nav-link text-white {{ request()->routeIs('statistique') ? 'active' : '' }}">
+            <i class="bi bi-graph-up fs-5"></i>
+            <span class="label ms-2">Statistique</span>
         </a>
-      </li>
-
-      <li class="nav-item mb-1">
-  <a href="{{ route('admin.translators.create') }}"
-     class="nav-link text-white {{ request()->routeIs('admin.translators.create') ? 'active' : '' }}">
-    <i class="bi bi-person-plus fs-5"></i>
-    <span class="label ms-2">Ajouter un traducteur</span>
-  </a>
-</li>
-<li class="nav-item mb-1">
-  <a href="{{ route('translator.index') }}"
-     class="nav-link text-white {{ request()->routeIs('translator.index') ? 'active' : '' }}">
-    <i class="bi bi-people fs-5"></i>
-    <span class="label ms-2">Liste des traducteurs</span>
-  </a>
-</li>
-
-    @elseif(Auth::user()->role === 'translator')
- <li class="nav-item mb-1">
-        <a href="{{ route('translator.tasks') }}"
-           class="nav-link text-white {{ request()->routeIs('translator.tasks') ? 'active' : '' }}">
-          <i class="bi bi-journal-text fs-5"></i>
-          <span class="label ms-2">Mes Traductions</span>
-        </a>
-      </li>
+    </li>
     @endif
-        </a>
-      </li>
-    </ul>
+
+</ul>
+
 
     <hr class="border-light" />
 

@@ -47,8 +47,10 @@ Route::middleware('auth')->group(function () {
     // Enregistrer le traducteur
     Route::post('/admin/translators', [App\Http\Controllers\Admin\TranslatorController::class, 'store'])->name('admin.translators.store');
     Route::get('/translator', [App\Http\Controllers\Admin\TranslatorController::class, 'index'])->name('translator.index');
-    Route::get('/translator/mes-traductions', [App\Http\Controllers\TaskController::class, 'index'])
-        ->name('translator.tasks');
+
+
+    Route::post('/admin/demandes/{demande}/affecter', [App\Http\Controllers\TaskController::class, 'affecter'])->name('admin.demandes.affecter');
+
 });
 
 

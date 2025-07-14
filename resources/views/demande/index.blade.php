@@ -24,10 +24,13 @@
                         <th>Prénom</th>
                         <th>CIN</th>
                         <th>Téléphone</th>
-                        <th>Date début</th>
-                        <th>Date fin</th>
+                        {{-- <th>Date début</th> --}}
+                        <th>Date de livraison</th>
                         <th>Status</th>
+                        <th>Traducteur</th>
+
                         <th class="text-center">Actions</th>
+
                     </tr>
                 </thead>
                 <tbody id="demandesTable">
@@ -37,7 +40,7 @@
                         <td>{{ $demande->prenom }}</td>
                         <td>{{ $demande->cin }}</td>
                         <td>{{ $demande->telephone }}</td>
-                        <td>{{ \Carbon\Carbon::parse($demande->date_debut)->format('d/m/Y') }}</td>
+                        {{-- <td>{{ \Carbon\Carbon::parse($demande->date_debut)->format('d/m/Y') }}</td> --}}
                         <td>{{ \Carbon\Carbon::parse($demande->date_fin)->format('d/m/Y') }}</td>
                         <td>
                             <div class="col-md-6">
@@ -56,8 +59,12 @@
                                 </span>
                             </div>
                           </td>
+                        <td style="max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                            title="{{ $demande->translator->name ?? '' }}">
+                            {{ $demande->translator->name ?? '—' }}
+                        </td>
 
-                        <td class="text-center">
+                        <td class="text-center" style="white-space: nowrap;">
                             <a href="{{ route('suivi_demande.show', ['id' => $demande->id, 'traduit' => false]) }}" class="btn btn-sm btn-info" title="Voir les détails">
                                 <i class="bi bi-eye"></i>
                             </a>
@@ -72,16 +79,57 @@
                                   <i class="bi bi-trash"></i>
                               </button>
                           </form>
-
+                    @if(Auth::user()->role === 'admin')
+                            <button type="button"
+                                    class="btn btn-sm btn-success ms-2"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#affecterModal"
+                                    data-demande-id="{{ $demande->id }}">
+                                <i class="bi bi-person-plus"></i> Affecter
+                            </button>
+                        @endif
                         </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="7" class="text-center fst-italic">Aucune demande trouvée.</td>
+                        <td colspan="9" class="text-center fst-italic">Aucune demande trouvée.</td>
                     </tr>
                     @endforelse
                 </tbody>
             </table>
+            <!-- Modal Affecter -->
+<div class="modal fade" id="affecterModal" tabindex="-1" aria-labelledby="affecterModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form method="POST" action="" id="affecterForm">
+        @csrf
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="affecterModalLabel">Affecter un traducteur</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" name="demande_id" id="demandeIdField">
+
+                <div class="mb-3">
+                    <label for="translator_id" class="form-label">Sélectionner un traducteur</label>
+                    <select name="translator_id" id="translatorSelect" class="form-select" required>
+                        <option value="">-- Choisir --</option>
+                        @foreach($traducteurs as $traducteur)
+                            <option value="{{ $traducteur->id }}">{{ $traducteur->name }} ({{ $traducteur->email }})</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary">Affecter</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </form>
+  </div>
+</div>
+
         </div>
     </div>
 </div>
@@ -113,5 +161,19 @@
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const affecterModal = document.getElementById('affecterModal');
+    const form = document.getElementById('affecterForm');
+    const demandeIdField = document.getElementById('demandeIdField');
+
+    affecterModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const demandeId = button.getAttribute('data-demande-id');
+
+        // injecte l’ID dans le champ caché et action du formulaire
+        demandeIdField.value = demandeId;
+        form.action = `/admin/demandes/${demandeId}/affecter`; // même route définie dans web.php
+    });
+});
 </script>
 @endsection

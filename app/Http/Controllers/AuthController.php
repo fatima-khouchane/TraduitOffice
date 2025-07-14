@@ -26,7 +26,7 @@ class AuthController extends Controller
             if ($role === 'admin') {
                 return redirect()->route('suivi_demande.index'); // Page admin
             } elseif ($role === 'translator') {
-                return redirect()->route('translator.index'); // Page traducteur
+                return redirect()->route('suivi_demande.index'); // Page traducteur
             } else {
                 // Par défaut, rediriger vers la page client ou une page générique
                 return redirect()->route('client.home'); // à adapter selon ton app

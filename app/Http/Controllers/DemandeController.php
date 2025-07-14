@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 // use App\Http\Requests\StoreDemandeRequest;
 use App\Models\Demande;
 use App\Models\FichierDemande;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class DemandeController extends Controller
@@ -16,18 +18,27 @@ class DemandeController extends Controller
      */
     public function index(Request $request)
     {
-        $demandes = Demande::where('status', 'en_cours')->paginate(10);
+        $traducteurs = User::where('role', 'translator')->get();
 
-        // $demandes = Demande::paginate(10);
-        return view('demande.index', compact('demandes'));
+        $user = Auth::user();
+
+        if ($user && $user->role === 'translator') {
+            $demandes = Demande::where('status', 'en_cours')
+                ->where('translator_id', $user->id)
+                ->paginate(10);
+        } else {
+            $demandes = Demande::where('status', 'en_cours')->paginate(10);
+        }
+
+        return view('demande.index', compact('demandes', 'traducteurs'));
     }
-
     public function index2(Request $request)
     {
         $demandes = Demande::where('status', 'terminee')->paginate(10);
+        $traducteurs = User::where('role', 'translator')->get();
 
         // $demandes = Demande::paginate(10);
-        return view('demande.demande_ter', compact('demandes'));
+        return view('demande.demande_ter', compact('demandes', 'traducteurs'));
     }
 
 

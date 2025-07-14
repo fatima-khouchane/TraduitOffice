@@ -43,4 +43,8 @@ class Demande extends Model
     {
         return $this->hasMany(FichierDemande::class);
     }
+    public function translator()
+    {
+        return $this->belongsTo(User::class, 'translator_id');
+    }
 }

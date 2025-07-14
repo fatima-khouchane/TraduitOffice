@@ -27,6 +27,8 @@
                         <th>Date début</th>
                         <th>Date fin</th>
                         <th>Status</th>
+                                                <th>Traducteur</th>
+
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -56,6 +58,8 @@
                                 </span>
                             </div>
                           </td>
+                          <td>{{ $demande->translator->name ?? '—' }}</td>
+
 
                         <td class="text-center">
                             <a href="{{ route('suivi_demande.show', ['id' => $demande->id, 'traduit' => true]) }}" class="btn btn-sm btn-info" title="Voir les détails">
