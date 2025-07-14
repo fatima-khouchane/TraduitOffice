@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\DemandeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatistiqueController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Translator\TaskController;
 
 // login
 Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
@@ -39,6 +40,15 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/statistique', [StatistiqueController::class, 'index'])->name('statistique'); // affiche table de suivi
 
+
+    // Afficher le formulaire
+    Route::get('/admin/translators/create', [App\Http\Controllers\Admin\TranslatorController::class, 'create'])->name('admin.translators.create');
+
+    // Enregistrer le traducteur
+    Route::post('/admin/translators', [App\Http\Controllers\Admin\TranslatorController::class, 'store'])->name('admin.translators.store');
+    Route::get('/translator', [App\Http\Controllers\Admin\TranslatorController::class, 'index'])->name('translator.index');
+    Route::get('/translator/mes-traductions', [App\Http\Controllers\TaskController::class, 'index'])
+        ->name('translator.tasks');
 });
 
 

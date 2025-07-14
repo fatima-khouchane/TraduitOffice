@@ -72,7 +72,7 @@
                             data-id="{{ $demande->id }}">
                         <option value="en_cours" {{ $demande->status == 'en_cours' ? 'selected' : '' }}>En cours</option>
                         <option value="terminee" {{ $demande->status == 'terminee' ? 'selected' : '' }}>Terminée</option>
-                        <option value="annulee" {{ $demande->status == 'annulee' ? 'selected' : '' }}>Annulée</option>
+                        {{-- <option value="annulee" {{ $demande->status == 'annulee' ? 'selected' : '' }}>Annulée</option> --}}
                     </select>
                     <span id="statusMessage" class="text-success small ms-2"></span>
                 @else

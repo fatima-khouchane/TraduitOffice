@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Hash;
 
 User::create([
     'name' => 'Admin',
-    'email' => 'admin@example.com',
-    'password' => Hash::make('123456')
+    'email' => 'admin@gmail.com',
+    'password' => Hash::make('admin123)
 ]);
 
 ------------------------------------------------------------------------

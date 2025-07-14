@@ -16,6 +16,7 @@
           <span class="label ms-2">Accueil</span>
         </a>
       </li> --}}
+          @if(Auth::user()->role === 'admin')
       <li class="nav-item mb-1">
         <a href="{{ route('demande.create') }}"
            class="nav-link text-white {{ request()->routeIs('demande.create') ? 'active' : '' }}">
@@ -42,8 +43,35 @@
         <a href="{{ route('statistique') }}"
         class="nav-link text-white {{ request()->routeIs('statistique') ? 'active' : '' }}">
         <i class="bi bi-graph-up fs-5"></i>
-<span class="label ms-2">Statistique</span>
+        <span class="label ms-2">Statistique</span>
 
+        </a>
+      </li>
+
+      <li class="nav-item mb-1">
+  <a href="{{ route('admin.translators.create') }}"
+     class="nav-link text-white {{ request()->routeIs('admin.translators.create') ? 'active' : '' }}">
+    <i class="bi bi-person-plus fs-5"></i>
+    <span class="label ms-2">Ajouter un traducteur</span>
+  </a>
+</li>
+<li class="nav-item mb-1">
+  <a href="{{ route('translator.index') }}"
+     class="nav-link text-white {{ request()->routeIs('translator.index') ? 'active' : '' }}">
+    <i class="bi bi-people fs-5"></i>
+    <span class="label ms-2">Liste des traducteurs</span>
+  </a>
+</li>
+
+    @elseif(Auth::user()->role === 'translator')
+ <li class="nav-item mb-1">
+        <a href="{{ route('translator.tasks') }}"
+           class="nav-link text-white {{ request()->routeIs('translator.tasks') ? 'active' : '' }}">
+          <i class="bi bi-journal-text fs-5"></i>
+          <span class="label ms-2">Mes Traductions</span>
+        </a>
+      </li>
+    @endif
         </a>
       </li>
     </ul>

@@ -20,7 +20,17 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->route('suivi_demande.index');
+
+            $role = Auth::user()->role;
+
+            if ($role === 'admin') {
+                return redirect()->route('suivi_demande.index'); // Page admin
+            } elseif ($role === 'translator') {
+                return redirect()->route('translator.index'); // Page traducteur
+            } else {
+                // Par défaut, rediriger vers la page client ou une page générique
+                return redirect()->route('client.home'); // à adapter selon ton app
+            }
         }
 
         return back()->withErrors([
