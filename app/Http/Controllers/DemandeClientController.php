@@ -96,6 +96,30 @@ class DemandeClientController extends Controller
         }
 
         return back()->with('success', 'Vous avez confirmé la réception des fichiers traduits.');
+
+
+
+    }
+
+
+
+    public function messages()
+    {
+        $demandes = Demande::with(['messages'])->where('user_id', Auth::id())->get();
+
+        // Marquer tous les messages comme lus
+        foreach ($demandes as $demande) {
+            foreach ($demande->messages as $message) {
+                if (!$message->is_read) {
+                    $message->is_read = true;
+                    $message->save();
+                }
+            }
+        }
+
+        return view('client.messages', compact('demandes'));
     }
 
 }
+
+

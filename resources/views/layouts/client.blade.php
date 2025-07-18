@@ -61,6 +61,29 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                     <ul class="navbar-nav align-items-center gap-3">
+                   <li class="nav-item">
+    <a class="nav-link position-relative fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('client.messages') ? 'active' : '' }}"
+       href="{{ route('client.messages') }}">
+        <i class="bi bi-envelope text-primary fs-5"></i>
+        <span>Messages</span>
+
+        @php
+            $demandeIds = \App\Models\Demande::where('user_id', Auth::id())->pluck('id');
+            $unreadCount = \App\Models\Message::whereIn('demande_id', $demandeIds)
+                ->where('is_read', false)
+                ->count();
+        @endphp
+
+        @if($unreadCount > 0)
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ $unreadCount }}
+                <span class="visually-hidden">non lus</span>
+            </span>
+        @endif
+    </a>
+</li>
+
+
                         <li class="nav-item">
                             <a class="nav-link fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('demande.create_client') ? 'active' : '' }}"
                                href="{{ route('demande.create_client') }}">
@@ -75,6 +98,7 @@
                                 <span>Suivi des demandes</span>
                             </a>
                         </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-person-circle fs-5 text-primary"></i>

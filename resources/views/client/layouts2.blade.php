@@ -27,6 +27,9 @@
                 <a href="{{ route('client.home') }}" class="btn btn-outline-primary d-flex align-items-center gap-2 px-4 py-2 shadow-sm">
                     <i class="bi bi-house fs-5"></i> Suivi ma demande
                 </a>
+
+
+
             </nav>
         </header>
 

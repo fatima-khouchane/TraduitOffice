@@ -85,6 +85,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/demande/{id}/envoyer-message', [DemandeController::class, 'envoyerMessage'])->name('admin.demande.envoyer_message');
     Route::post('/admin/demande/{id}/envoyer-message', [DemandeController::class, 'envoyerMessage'])->name('admin.demande.envoyer_message');
 
+
+    Route::get('/client/messages', [DemandeClientController::class, 'messages'])->name('client.messages');
+
 });
 
 
