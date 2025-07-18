@@ -12,8 +12,8 @@ return new class extends Migration {
     {
         Schema::create('demandes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('prenom');
+            $table->string('nom_titulaire');
+            $table->string('nom_demandeur');
             $table->string('cin');
             $table->string('telephone');
             $table->date('date_debut');

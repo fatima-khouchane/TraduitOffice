@@ -1,7 +1,7 @@
 <div class="d-flex flex-column p-3 h-100 text-white">
     <!-- Titre + bouton toggle -->
     <div class="sidebar-header">
-      <span class="fs-5 fw-bold brand-text">TraduOffice</span>
+      <span class="fs-5 fw-bold brand-text">TraduitOffice</span>
       <button id="toggleBtn" class="btn btn-sm">
         <i class="bi bi-list"></i>
       </button>
@@ -58,6 +58,15 @@
         </a>
     </li>
 
+    <!-- 3. Demandes Confirmées -->
+<li class="nav-item mb-1">
+    <a href="{{ route('admin.demandes.confirmees') }}"
+       class="nav-link text-white {{ request()->routeIs('admin.demandes.confirmees') ? 'active' : '' }}">
+        <i class="bi bi-check2-circle fs-5"></i>
+        <span class="label ms-2">Demandes Confirmées</span>
+    </a>
+</li>
+
     <!-- 6. Statistique -->
     <li class="nav-item mb-1">
         <a href="{{ route('statistique') }}"
@@ -67,6 +76,7 @@
         </a>
     </li>
     @endif
+
 
 </ul>
 

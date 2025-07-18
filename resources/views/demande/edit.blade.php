@@ -30,12 +30,12 @@
           <!-- Nom / Prénom -->
           <div class="row mb-3">
             <div class="col-md-6">
-              <label class="form-label">Nom</label>
-              <input type="text" name="nom" class="form-control" required value="{{ old('nom', $demande->nom) }}">
+              <label class="form-label">nom_demandeur</label>
+              <input type="text" name="nom_demandeur" class="form-control" required value="{{ old('nom_demandeur', $demande->nom_demandeur) }}">
             </div>
             <div class="col-md-6">
-              <label class="form-label">Prénom</label>
-              <input type="text" name="prenom" class="form-control" required value="{{ old('prenom', $demande->prenom) }}">
+              <label class="form-label">nom_titulaire</label>
+              <input type="text" name="nom_titulaire" class="form-control" required value="{{ old('nom_titulaire', $demande->nom_titulaire) }}">
             </div>
           </div>
 
@@ -55,11 +55,13 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Date début</label>
-              <input type="date" name="date_debut" class="form-control" required value="{{ old('date_debut', $demande->date_debut->format('Y-m-d')) }}">
+<input type="date" name="date_debut" class="form-control" required
+       value="{{ old('date_debut', $demande->date_debut ? $demande->date_debut->format('Y-m-d') : '') }}">
             </div>
             <div class="col-md-6">
               <label class="form-label">Date fin</label>
-              <input type="date" name="date_fin" class="form-control" required value="{{ old('date_fin', $demande->date_fin->format('Y-m-d')) }}">
+<input type="date" name="date_fin" class="form-control" required
+       value="{{ old('date_fin', $demande->date_fin ? $demande->date_fin->format('Y-m-d') : '') }}">
             </div>
           </div>
 
@@ -139,7 +141,7 @@
             <select name="status" id="status" class="form-control" required>
               <option value="en_cours" {{ old('status', $demande->status) === 'en_cours' ? 'selected' : '' }}>En cours</option>
               <option value="terminee" {{ old('status', $demande->status) === 'terminee' ? 'selected' : '' }}>Terminée</option>
-              <option value="annulee" {{ old('status', $demande->status) === 'annulee' ? 'selected' : '' }}>Annulée</option>
+              <option value="en_attente" {{ old('status', $demande->status) === 'en_attente' ? 'selected' : '' }}>En attente</option>
             </select>
           </div>
 

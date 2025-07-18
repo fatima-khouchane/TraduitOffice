@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Barryvdh\DomPDF\Facade\Pdf; // si tu utilises barryvdh/laravel-dompdf
 
 // use App\Http\Requests\StoreDemandeRequest;
 use App\Models\Demande;
@@ -19,27 +20,41 @@ class DemandeController extends Controller
     public function index(Request $request)
     {
         $traducteurs = User::where('role', 'translator')->get();
-
         $user = Auth::user();
 
+        // Si le traducteur est connecté → afficher uniquement ses demandes
         if ($user && $user->role === 'translator') {
-            $demandes = Demande::where('status', 'en_cours')
+            $demandes = Demande::whereIn('status', ['en_cours', 'en_attente'])
                 ->where('translator_id', $user->id)
                 ->paginate(10);
         } else {
-            $demandes = Demande::where('status', 'en_cours')->paginate(10);
+            // Admin ou autre → afficher toutes les demandes en attente ou en cours
+            $demandes = Demande::whereIn('status', ['en_cours', 'en_attente'])
+                ->paginate(10);
         }
 
         return view('demande.index', compact('demandes', 'traducteurs'));
     }
+
     public function index2(Request $request)
     {
-        $demandes = Demande::where('status', 'terminee')->paginate(10);
         $traducteurs = User::where('role', 'translator')->get();
+        $user = Auth::user();
 
-        // $demandes = Demande::paginate(10);
+        // Si le traducteur est connecté → afficher uniquement ses demandes terminées
+        if ($user && $user->role === 'translator') {
+            $demandes = Demande::where('status', 'terminee')
+                ->where('translator_id', $user->id)
+                ->paginate(10);
+        } else {
+            // Admin ou autre → afficher toutes les demandes terminées
+            $demandes = Demande::where('status', 'terminee')
+                ->paginate(10);
+        }
+
         return view('demande.demande_ter', compact('demandes', 'traducteurs'));
     }
+
 
 
     /**
@@ -57,8 +72,8 @@ class DemandeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
+            'nom_demandeur' => 'nullable',
+            'nom_titulaire' => 'required',
             'cin' => 'required',
             'telephone' => 'required',
             'date_debut' => 'required|date',
@@ -69,6 +84,7 @@ class DemandeController extends Controller
             'langue_origine' => 'required',
             'langue_souhaitee' => 'required',
             'fichiers.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
+
         ]);
 
         // Construire le tableau documents à insérer dans le champ JSON
@@ -82,8 +98,8 @@ class DemandeController extends Controller
 
         // Enregistrement dans la base
         $demande = Demande::create([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
+            'nom_demandeur' => $request->nom_demandeur,
+            'nom_titulaire' => $request->nom_titulaire,
             'cin' => $request->cin,
             'telephone' => $request->telephone,
             'date_debut' => $request->date_debut,
@@ -93,6 +109,9 @@ class DemandeController extends Controller
             'langue_origine' => $request->langue_origine,
             'langue_souhaitee' => $request->langue_souhaitee,
             'remarque' => $request->remarque,
+            'user_id' => Auth::id(),
+            'is_online' => false,
+
         ]);
 
         // Gérer les fichiers
@@ -143,8 +162,8 @@ class DemandeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nom' => 'required',
-            'prenom' => 'required',
+            'nom_demandeur' => 'nullable',
+            'nom_titulaire' => 'required',
             'cin' => 'required',
             'telephone' => 'required',
             'date_debut' => 'required|date',
@@ -183,8 +202,8 @@ class DemandeController extends Controller
 
         // Mettre à jour la demande
         $demande->update([
-            'nom' => $request->nom,
-            'prenom' => $request->prenom,
+            'nom_titulaire' => $request->nom_titulaire,
+            'nom_demandeur' => $request->nom_demandeur,
             'cin' => $request->cin,
             'telephone' => $request->telephone,
             'date_debut' => $request->date_debut,
@@ -218,7 +237,7 @@ class DemandeController extends Controller
     public function updateStatus(Request $request, $id)
     {
         $request->validate([
-            'status' => 'required|in:en_cours,terminee,annulee',
+            'status' => 'required|in:en_cours,terminee',
         ]);
 
         $demande = Demande::findOrFail($id);
@@ -291,6 +310,54 @@ class DemandeController extends Controller
         return redirect()->route('suivi_demande.index')->with('success', 'Demande supprimée avec succès.');
     }
 
+    // imprimer
+    public function imprimerPDF(Request $request)
+    {
+        $request->validate([
+            'mois' => 'required|date_format:Y-m',
+        ]);
+
+        $mois = $request->input('mois');
+        $start = $mois . '-01';
+        $end = \Carbon\Carbon::parse($start)->endOfMonth()->format('Y-m-d');
+
+        $demandes = Demande::where('status', 'terminee')
+            ->whereBetween('date_fin', [$start, $end])
+            ->with('fichiers')
+            ->get();
+
+        $total = $demandes->sum('prix_total');
+
+        $pdf = PDF::loadView('demande.pdf', compact('demandes', 'mois', 'total'));
+        return $pdf->stream("demandes_traduites_$mois.pdf");
+    }
+
+
+
+    public function demandesConfirmees()
+    {
+        $demandes = Demande::where('confirme_par_client', true)
+            ->orderBy('date_fin', 'desc')
+            ->paginate(20);
+
+        return view('demande.confirmees', compact('demandes'));
+    }
+
+    public function envoyerMessage(Request $request, $id)
+    {
+        $request->validate([
+            'contenu' => 'required|string|max:2000',
+        ]);
+
+        $demande = Demande::findOrFail($id);
+
+        // Enregistrer le message
+        $demande->messages()->create([
+            'contenu' => $request->contenu,
+        ]);
+
+        return redirect()->back()->with('success', 'Message envoyé au client.');
+    }
 
 
 }

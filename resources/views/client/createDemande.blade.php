@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.client')
 
 @section('title', 'Nouvelle Demande')
 
@@ -7,7 +7,7 @@
   <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="col-md-10 d-flex justify-content-center">
       <div class="card shadow p-4 my-4" style="width: 100%; max-width: 900px;">
-        <h2 class="mb-4 text-center">Créer une nouvelle demande</h2>
+        <h2 class="mb-4 text-center">Envoyer une demande de traduction</h2>
 
         @if (session('success'))
           <div class="alert alert-success">{{ session('success') }}</div>
@@ -22,19 +22,21 @@
             </ul>
           </div>
         @endif
-
-        <form action="{{ route('demande.store') }}" method="POST" enctype="multipart/form-data">
+       <form action="{{ route('demande.store_client') }}" method="POST" enctype="multipart/form-data">
           @csrf
 
           <div class="row mb-3">
-             <div class="col-md-6">
-    <label class="form-label">Nom complet du demandeur</label>
-    <input type="text" name="nom_demandeur" class="form-control" required>
-  </div>
-  <div class="col-md-6">
-    <label class="form-label">Nom complet du titulaire du document</label>
-    <input type="text" name="nom_titulaire" class="form-control" required>
-  </div>
+            <div class="col-md-6">
+              <label class="form-label">nom complet de titulaire</label>
+              <input type="text" name="nom_titulaire" class="form-control" required>
+            </div>
+            
+         {{-- <div class="col-md-6">
+    <label class="form-label">Adresse (où vous souhaitez recevoir vos documents)</label>
+    <textarea name="adresse" class="form-control" rows="3" required></textarea>
+</div> --}}
+
+
           </div>
 
           <div class="row mb-3">
@@ -48,7 +50,7 @@
             </div>
           </div>
 
-          <div class="row mb-3">
+          {{-- <div class="row mb-3">
             <div class="col-md-6">
               <label class="form-label">Date début</label>
               <input type="date" name="date_debut" class="form-control" required>
@@ -57,7 +59,7 @@
               <label class="form-label">Date fin</label>
               <input type="date" name="date_fin" class="form-control" required>
             </div>
-          </div>
+          </div> --}}
 
           <div id="documents_container">
             <div class="document_group mb-3 row align-items-end">
@@ -85,10 +87,10 @@
           <button type="button" id="add_document" class="btn btn-secondary mb-3">+ Ajouter un autre document</button>
 
           <div class="row mb-3">
-            <div class="col-md-6">
+            {{-- <div class="col-md-6">
               <label class="form-label">Prix total</label>
               <input type="number" step="0.01" name="prix_total" class="form-control" required>
-            </div>
+            </div> --}}
             <div class="col-md-6">
               <label class="form-label">Langue d'origine</label>
               <select name="langue_origine" class="form-control" required>
@@ -118,7 +120,7 @@
           <div id="fichiers_container">
             <div class="mb-3">
               <label class="form-label">Fichier justificatif</label>
-              <input type="file" name="fichiers[]" class="form-control" accept="application/pdf,image/*">
+              <input type="file" name="fichiers[]" class="form-control" accept="application/pdf,image/*" required>
             </div>
           </div>
           <button type="button" class="btn btn-secondary" id="add_file_btn">+ Ajouter un autre fichier</button>
@@ -131,32 +133,16 @@
   </div>
 </div>
 
+@push('scripts')
 <script>
     const sousTypes = {
-        administratif: [
-            "Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance", "Copie intégrale d’acte de naissance",
-            "Extrait du casier judiciaire", "Attestation de travail", "Attestation de salaire", "Attestation de prise en charge",
-            "Certificat de scolarité", "Certificat de radiation", "Certificat de non-inscription au commerce",
-            "Certificat de capacité d’inscription", "Bulletin de notes (système Bac marocain)",
-            "Bulletin de notes (système scolaire étranger)", "Copies supplémentaires / page"
-        ],
-      medical: ["Certificat médical", "Dossier médical"],
-      notaire: [
-        "Acte de mariage", "Acte notarié", "Acte de naissance", "Jugement de divorce", "Jugement étranger exequatur",
-        "Jugement d’adoption", "Acte de tutelle", "Acte de kafala", "Décision d’expulsion",
-        "Jugement étranger avant 2004", "Jugement étranger après la famille 2004",
-        "Jugement étranger divers (divorces irrévocables)", "Acte de répudiation", "Acte de désistement",
-        "Kafala", "Acte de prise en charge", "Procuration", "Remise d’enfants", "Acte d’hérédité",
-        "Inventaire successoral", "Partage successoral", "Acte d’achat / vente", "Copies supplémentaires / page"
-      ],
-      etranger: [
-        "Copie intégrale d’acte de naissance", "Acte de naissance", "Certificat de capacité à mariage",
-        "Certificat de divorce", "Extrait du casier judiciaire", "Attestation de célibat",
-        "Certificat de résidence", "Acte de mariage"
-      ],
-      dossier: ["Jugements", "Actes notariés", "Procès-verbaux", "Statuts", "Dossiers techniques"],
-      interprete: ["Assemblées générales", "Conseils d’administration", "Séances de délibérations", "Débats aux audiences des tribunaux"],
-      douane: ["Déclaration en douane", "Facture commerciale", "Certificat d’origine", "Liste de colisage", "Document de transport"]
+        administratif: ["Certificat de résidence", "Attestation de célibat", "Extrait d’acte de naissance"],
+        medical: ["Certificat médical", "Dossier médical"],
+        notaire: ["Acte de mariage", "Acte notarié"],
+        etranger: ["Copie intégrale d’acte de naissance", "Certificat de capacité à mariage"],
+        dossier: ["Jugements", "Statuts", "Procès-verbaux"],
+        interprete: ["Assemblées générales", "Séances de délibérations"],
+        douane: ["Déclaration en douane", "Facture commerciale"]
     };
 
     function updateSousType(select) {
@@ -182,24 +168,17 @@
       }
     }
 
-    // Initialisation des catégories existantes
     document.querySelectorAll('.categorie_select').forEach(select => {
       select.addEventListener('change', function () {
         updateSousType(this);
       });
-
-      if (select.value !== '') {
-        updateSousType(select);
-      }
     });
 
-    // Ajouter un autre document (sans file input)
     document.getElementById('add_document').addEventListener('click', () => {
       const container = document.getElementById('documents_container');
       const original = container.querySelector('.document_group');
       const clone = original.cloneNode(true);
 
-      // Réinitialiser les champs
       const categorieSelect = clone.querySelector('.categorie_select');
       const labelInput = clone.querySelector('.categorie_label');
       const sousSelect = clone.querySelector('.sous_type_select');
@@ -209,12 +188,10 @@
       sousSelect.innerHTML = '';
       sousSelect.style.display = 'none';
 
-      // Réattacher l’événement
       categorieSelect.addEventListener('change', function () {
         updateSousType(this);
       });
 
-      // Bouton Annuler
       const cancelBtn = document.createElement('button');
       cancelBtn.type = 'button';
       cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
@@ -228,7 +205,6 @@
       container.appendChild(clone);
     });
 
-    // Ajouter un autre fichier (indépendamment)
     document.getElementById('add_file_btn').addEventListener('click', () => {
       const container = document.getElementById('fichiers_container');
 
@@ -254,7 +230,9 @@
       wrapper.appendChild(cancelBtn);
       container.appendChild(wrapper);
     });
-  </script>
-
-
+</script>
+@endpush
 @endsection
+
+
+

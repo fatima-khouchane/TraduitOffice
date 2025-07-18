@@ -37,14 +37,15 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+         <div class="row mb-3">
             <div class="col-md-6">
-                <strong>Date début :</strong> {{ $demande->date_debut->format('d/m/Y') }}
+<strong>Date début :</strong> {{ optional($demande->date_debut)->format('d/m/Y') ?? 'Non définie' }}
             </div>
             <div class="col-md-6">
-                <strong>Date fin :</strong> {{ $demande->date_fin->format('d/m/Y') }}
+<strong>Date fin :</strong> {{ optional($demande->date_fin)->format('d/m/Y') ?? 'Non définie' }}
             </div>
         </div>
+
 
         <div class="mb-3">
             <strong>Documents :</strong>
@@ -62,7 +63,12 @@
 
         <div class="row mb-3">
             <div class="col-md-6">
-                <strong>Prix total :</strong> {{ number_format($demande->prix_total, 2, ',', ' ') }} MAD
+            <strong>Prix total :</strong>
+            @if(!is_null($demande->prix_total))
+                <span class="text-success">{{ number_format($demande->prix_total, 2, ',', ' ') }} MAD</span>
+            @else
+                <span class="text-warning fst-italic">Pas encore défini</span>
+            @endif
             </div>
             <div class="col-md-6 d-flex align-items-center gap-2">
                 <strong class="me-2">Status :</strong>

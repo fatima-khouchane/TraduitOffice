@@ -21,6 +21,14 @@
                 <h3 class="fw-bold text-warning">{{ $documents_en_cours }}</h3>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card bg-white shadow-lg border-0 rounded-4 text-center py-4">
+                <h6 class="text-muted">Clients ayant fait une demande en ligne</h6>
+                <h3 class="fw-bold text-primary">{{ $clients_en_ligne }}</h3>
+            </div>
+
+        </div>
+
 
         <div class="col-md-4">
             <div class="card bg-white shadow-lg border-0 rounded-4 text-center py-4">

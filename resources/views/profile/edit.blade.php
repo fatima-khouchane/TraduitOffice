@@ -1,14 +1,25 @@
-@extends('layouts.app')
+@extends('layouts.client')
+
+@section('title', 'Modifier le profil')
 
 @section('content')
-
-
-<div class="center-form-wrapper">
-    <div class="card shadow-lg p-4 w-100" style="width:5000px;border-radius: 15px;">
+    <div class="card shadow-lg p-4" style="border-radius: 15px; max-width: 600px; margin: 0 auto;">
         <h3 class="text-center mb-4">Modifier le profil</h3>
 
+        {{-- Message de succès --}}
         @if(session('success'))
             <div class="alert alert-success text-center">{{ session('success') }}</div>
+        @endif
+
+        {{-- Message d'erreurs --}}
+        @if($errors->any())
+            <div class="alert alert-danger">
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         <form method="POST" action="{{ route('profil.update') }}">
@@ -45,32 +56,25 @@
             </div>
         </form>
     </div>
-</div>
+@endsection
 
-<!-- Icônes Bootstrap -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
-<!-- Script pour afficher/masquer les mots de passe -->
+@push('scripts')
 <script>
-    // Mot de passe
-    document.getElementById('togglePassword').addEventListener('click', function () {
+    // Afficher/masquer mot de passe
+    document.getElementById('togglePassword')?.addEventListener('click', function () {
         const input = document.getElementById('password');
         const icon = document.getElementById('iconPassword');
-        const type = input.type === 'password' ? 'text' : 'password';
-        input.type = type;
+        input.type = input.type === 'password' ? 'text' : 'password';
         icon.classList.toggle('bi-eye');
         icon.classList.toggle('bi-eye-slash');
     });
 
-    // Confirmation
-    document.getElementById('toggleConfirm').addEventListener('click', function () {
+    document.getElementById('toggleConfirm')?.addEventListener('click', function () {
         const input = document.getElementById('passwordConfirm');
         const icon = document.getElementById('iconConfirm');
-        const type = input.type === 'password' ? 'text' : 'password';
-        input.type = type;
+        input.type = input.type === 'password' ? 'text' : 'password';
         icon.classList.toggle('bi-eye');
         icon.classList.toggle('bi-eye-slash');
     });
 </script>
-
-@endsection
+@endpush

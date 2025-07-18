@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Demande;
 use App\Models\FichierDemande;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
@@ -56,7 +57,9 @@ class StatistiqueController extends Controller
             $valeurs[] = $count;
         }
 
-
+        $clients_en_ligne = User::whereHas('demandes', function ($query) {
+            $query->where('is_online', true);
+        })->count();
 
         return view('statistique', compact(
             'documents_termines',
@@ -64,7 +67,9 @@ class StatistiqueController extends Controller
             'langue_plus_traduite',
             'categories_top',
             'mois',
-            'valeurs'
+            'valeurs',
+            'clients_en_ligne'
+
         ));
     }
 }

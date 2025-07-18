@@ -34,6 +34,13 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+    public function demandes()
+    {
+        return $this->hasMany(Demande::class, 'user_id');
+    }
+
+
+
 
     /**
      * Get the attributes that should be cast.

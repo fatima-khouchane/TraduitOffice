@@ -3,13 +3,22 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DemandeClientController;
 use App\Http\Controllers\DemandeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatistiqueController;
 use App\Http\Controllers\Translator\TaskController;
 
 // login
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('/register', [AuthController::class, 'registerClient'])->name('client.register');
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('home');
+
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
@@ -50,6 +59,31 @@ Route::middleware('auth')->group(function () {
 
 
     Route::post('/admin/demandes/{demande}/affecter', [App\Http\Controllers\TaskController::class, 'affecter'])->name('admin.demandes.affecter');
+
+
+    Route::get('/client/home', function () {
+        return view('client.home');
+    })->name('client.home');
+
+
+
+
+    // client create demande
+    Route::get('/client/demande/create', [DemandeClientController::class, 'createClient'])->name('demande.create_client');
+
+    Route::get('/client/mes-demandes', [DemandeClientController::class, 'mesDemandes'])->name('client.mes_demandes');
+
+    Route::post('/client/demande/store', [DemandeClientController::class, 'storeFromClient'])->name('demande.store_client');
+
+
+    // imprimer
+    Route::get('/demande/imprimer_pdf', [DemandeController::class, 'imprimerPDF'])->name('demande.imprimer_pdf');
+    Route::post('/demande/{id}/confirmer-reception', [DemandeClientController::class, 'confirmerReception'])
+        ->name('demande.confirmer_reception');
+
+    Route::get('/admin/demandes/confirmées', [DemandeController::class, 'demandesConfirmees'])->name('admin.demandes.confirmees');
+    Route::post('/admin/demande/{id}/envoyer-message', [DemandeController::class, 'envoyerMessage'])->name('admin.demande.envoyer_message');
+    Route::post('/admin/demande/{id}/envoyer-message', [DemandeController::class, 'envoyerMessage'])->name('admin.demande.envoyer_message');
 
 });
 

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Demande extends Model
 {
     protected $fillable = [
-        'nom',
-        'prenom',
+        'nom_titulaire',
+        'nom_demandeur',
         'cin',
         'telephone',
         'date_debut',
@@ -19,6 +19,10 @@ class Demande extends Model
         'langue_souhaitee',
         'remarque',
         'status',
+        'translator_id',
+        'user_id',
+        'is_online',
+
     ];
 
     protected $casts = [
@@ -47,4 +51,14 @@ class Demande extends Model
     {
         return $this->belongsTo(User::class, 'translator_id');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
+
+
 }
