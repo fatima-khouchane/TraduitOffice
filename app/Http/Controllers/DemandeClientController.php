@@ -20,7 +20,7 @@ class DemandeClientController extends Controller
 
             'cin' => 'required',
             'telephone' => 'required',
-
+            'adresse' => 'required',
             'langue_origine' => 'required',
             'langue_souhaitee' => 'required',
             'fichiers.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -53,6 +53,7 @@ class DemandeClientController extends Controller
             'documents' => $documents,
             'prix_total' => null,
             'is_online' => true, // ✅ Ajout ici
+            'adresse' => $request->adresse
         ]);
 
 

@@ -140,7 +140,7 @@
             <label for="status" class="form-label">Statut de la demande</label>
             <select name="status" id="status" class="form-control" required>
               <option value="en_cours" {{ old('status', $demande->status) === 'en_cours' ? 'selected' : '' }}>En cours</option>
-              <option value="terminee" {{ old('status', $demande->status) === 'terminee' ? 'selected' : '' }}>Terminée</option>
+              {{-- <option value="terminee" {{ old('status', $demande->status) === 'terminee' ? 'selected' : '' }}>Terminée</option> --}}
               <option value="en_attente" {{ old('status', $demande->status) === 'en_attente' ? 'selected' : '' }}>En attente</option>
             </select>
           </div>

@@ -61,8 +61,8 @@
                 <tbody id="demandesTable">
                     @forelse ($demandes as $demande)
                     <tr data-saisie-par="{{ $demande->is_online ? 'online' : 'agency' }}">
-                        <td class="fw-semibold">{{ $demande->nom }}</td>
-                        <td>{{ $demande->prenom }}</td>
+                        <td class="fw-semibold">{{ $demande->nom_titulaire }}</td>
+                        <td>{{ $demande->nom_demandeur }}</td>
                         <td>{{ $demande->cin }}</td>
                         <td>{{ $demande->telephone }}</td>
                         <td>{{ \Carbon\Carbon::parse($demande->date_debut)->format('d/m/Y') }}</td>

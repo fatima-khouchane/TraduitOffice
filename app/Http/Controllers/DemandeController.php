@@ -173,7 +173,7 @@ class DemandeController extends Controller
             'prix_total' => 'required|numeric',
             'langue_origine' => 'required|in:Anglais,Arabe',
             'langue_souhaitee' => 'required|in:Anglais,Arabe',
-            'status' => 'required|in:en_cours,terminee,annulee',
+            'status' => 'required|in:en_cours,en_attente',
 
             'fichiers.*' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
         ]);

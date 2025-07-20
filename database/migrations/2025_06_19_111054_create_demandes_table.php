@@ -26,6 +26,8 @@ return new class extends Migration {
             $table->string('langue_origine');
             $table->string('langue_souhaitee');
             $table->text('remarque')->nullable();
+            $table->text('adresse')->nullable();
+
 
             $table->timestamps();
         });

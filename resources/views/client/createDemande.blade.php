@@ -31,10 +31,10 @@
               <input type="text" name="nom_titulaire" class="form-control" required>
             </div>
 
-         {{-- <div class="col-md-6">
+         <div class="col-md-6">
     <label class="form-label">Adresse (où vous souhaitez recevoir vos documents)</label>
     <textarea name="adresse" class="form-control" rows="3" required></textarea>
-</div> --}}
+</div>
 
 
           </div>

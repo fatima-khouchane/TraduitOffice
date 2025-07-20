@@ -97,6 +97,8 @@
         <p><strong>Prix total :</strong>
           {{ $demande->prix_total ? number_format($demande->prix_total, 2, ',', ' ') . ' MAD' : 'Pas encore défini' }}
         </p>
+          <p><strong>votre adress : </strong>
+{{ $demande->adresse }}        </p>
 
         <p>
           <strong>Statut :</strong>

@@ -22,6 +22,7 @@ class Demande extends Model
         'translator_id',
         'user_id',
         'is_online',
+        'adresse'
 
     ];
 
