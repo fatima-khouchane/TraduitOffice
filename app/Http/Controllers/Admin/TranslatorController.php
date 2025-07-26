@@ -31,7 +31,7 @@ class TranslatorController extends Controller
             'role' => 'translator',
         ]);
 
-        return redirect()->route('admin.translators.create')->with('success', 'Traducteur ajouté avec succès.');
+        return redirect()->route('admin.translators.create')->with('success', __('translator.traducteur_ajoute_avec_succes'));
     }
     public function index()
     {

@@ -1,5 +1,6 @@
 @extends('layouts.client')
 
+
 @section('title', __('profile.edit_title'))
 
 @section('content')
@@ -56,7 +57,6 @@
             </div>
         </form>
     </div>
-@endsection
 
 @push('scripts')
 <script>
@@ -77,3 +77,4 @@
     });
 </script>
 @endpush
+@endsection

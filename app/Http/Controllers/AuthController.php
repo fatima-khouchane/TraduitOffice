@@ -64,7 +64,7 @@ class AuthController extends Controller
         Auth::login($user);
 
         // Redirection vers page de vérification d'email
-        return redirect()->route('client.home');
+        return redirect()->route('client.mes_demandes');
     }
 
 

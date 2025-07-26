@@ -52,14 +52,13 @@
                         <td>
                          <ul>
    @foreach($demande->documents ?? [] as $doc)
-    <li class="mb-2">
-        <strong>{{ __('demande.categorie') }} :</strong>
-        {{ __( $doc['categorie']) ?? ucfirst($doc['categorie']) }}<br>
-
-        <strong>{{ __('demande.sous_type') }} :</strong>
-        {{ __( $doc['sous_type']) ?? ucfirst($doc['sous_type'] ?? '—') }}
-    </li>
-@endforeach
+        <li class="mb-2">
+            <strong>{{ __('demande.categorie') }} :</strong>
+            {{ __('documents.types.' . $doc['categorie']) ?? $doc['categorie'] }}<br>
+            <strong>{{ __('demande.sous_type_document') }} :</strong>
+            {{ __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'] }}
+        </li>
+    @endforeach
 </ul>
 
 

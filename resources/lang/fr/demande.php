@@ -51,8 +51,13 @@ return [
     'documents_apres' => '✅ Documents APRÈS traduction',
     'aucun_fichier_disponible' => 'Aucun fichier disponible.',
     'retour_liste' => '← Retour à la liste',
-    'statut_mis_a_jour' => '✅ Statut mis à jour',
-    'erreur_mise_a_jour' => '❌ Erreur lors de la mise à jour',
+
+    'statut_mis_a_jour' => 'Statut mis à jour avec succès.',
+    'erreur_mise_a_jour' => 'Erreur lors de la mise à jour.',
     'voir' => 'Voir',
     'telecharger' => 'Télécharger',
+    'anglais' => 'Anglais',
+    'français' => 'Français',
+    'arabe' => 'Arabe',
 ];
+

@@ -7,4 +7,6 @@ return [
     'phone' => 'Téléphone',
     'password' => 'Mot de passe',
     'create_account' => 'Créer le compte',
+    'traducteur_ajoute_avec_succes' => 'Traducteur ajouté avec succès.',
+
 ];

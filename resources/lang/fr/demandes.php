@@ -77,4 +77,6 @@ return [
     'selectionner_categorie' => '-- Sélectionner une catégorie --',
     'sous_type_document' => 'Sous-type du document',
     'ajouter_document' => 'Ajouter un document',
+    'demande_mise_a_jour_avec_succes' => 'La demande a été mise à jour avec succès.',
+
 ];

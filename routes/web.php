@@ -116,12 +116,13 @@ Route::put('/profil/update', [ProfileController::class, 'update'])->name('profil
 
 
 Route::get('/lang/{locale}', function ($locale) {
-    $availableLocales = ['en', 'fr', 'ar'];  // langues acceptées
-    if (in_array($locale, $availableLocales)) {
-        session(['locale' => $locale]);  // on enregistre la langue en session
+    if (in_array($locale, ['en', 'fr', 'ar'])) {
+        // Crée un cookie "locale" qui expire dans 1 an
+        return redirect()->back()->withCookie(cookie('locale', $locale, 60 * 24 * 365));
     }
     return redirect()->back();
 })->name('lang.switch');
+
 Route::get('/export-demandes', function (Request $request) {
     $mois = $request->query('mois'); // Exemple: 2025-07
 

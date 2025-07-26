@@ -31,7 +31,7 @@
         <li class="mb-2">
             <strong>{{ __('demande.categorie') }} :</strong>
             {{ __('documents.types.' . $doc['categorie']) ?? $doc['categorie'] }}<br>
-            <strong>{{ __('demande.sous_type') }} :</strong>
+            <strong>{{ __('demande.sous_type_document') }} :</strong>
             {{ __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'] }}
         </li>
     @endforeach
@@ -75,10 +75,17 @@
         </form>
         @endif
 
-        <div class="row mb-3 mt-4">
-            <div class="col-md-6"><strong>{{ __('demande.langue_origine') }} :</strong> {{ $demande->langue_origine }}</div>
-            <div class="col-md-6"><strong>{{ __('demande.langue_souhaitee') }} :</strong> {{ $demande->langue_souhaitee }}</div>
-        </div>
+   <div class="row mb-3 mt-4">
+    <div class="col-md-6">
+        <strong>{{ __('demande.langue_origine') }} :</strong>
+        {{ __('demande.' . strtolower($demande->langue_origine)) }}
+    </div>
+    <div class="col-md-6">
+        <strong>{{ __('demande.langue_souhaitee') }} :</strong>
+        {{ __('demande.' . strtolower($demande->langue_souhaitee)) }}
+    </div>
+</div>
+
 
         <div class="mb-4">
             <strong>{{ __('demande.remarque') }} :</strong>
@@ -144,9 +151,15 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+     const translations = {
+        success: "{{ __('demande.statut_mis_a_jour') }}",
+        error: "{{ __('demande.status_update_error') }}"
+    };
     const select = document.getElementById('statusSelect');
     const message = document.getElementById('statusMessage');
     const uploadField = document.getElementById('uploadField');
+
+    console.log(translations);
 
     function toggleUploadField(status) {
         uploadField.style.display = (status === 'terminee') ? 'block' : 'none';
@@ -184,13 +197,15 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => response.json())
         .then(data => {
-            message.textContent = '✅ ' + (data.message ?? '{{ __("demande.status_updated") }}');
+            message.textContent = '✅ ' + (data.message ?? translations.success);
             setTimeout(() => message.textContent = '', 2000);
         })
         .catch(error => {
             console.error('Erreur:', error);
-            message.textContent = '❌ ' + (error.message ?? '{{ __("demande.status_update_error") }}');
+            message.textContent = '❌ ' + translations.error;
         });
+
+
     });
 });
 </script>

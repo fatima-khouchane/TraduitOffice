@@ -33,6 +33,6 @@ class ProfileController extends Controller
 
         $user->save();
 
-        return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
+        return redirect()->back()->with('success', __('profile.updated_success'));
     }
 }

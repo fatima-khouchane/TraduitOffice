@@ -54,19 +54,18 @@
           <div id="documents_container">
             <div class="document_group mb-3 row align-items-end">
               <div class="col-md-6">
-                <label class="form-label">{{ __('demandeClient.categorie_document') }}</label>
-                <select name="categorie[]" class="form-select categorie_select" required>
-                  <option value="">{{ __('demandeClient.select_category') }}</option>
-                  @foreach(array_keys($documents) as $cat)
-                    <option value="{{ $cat }}">{{ $cat }}</option>
+                <label class="form-label">{{ __('demande.categorie_document') }}</label>
+                <select name="categorie[]" class="form-control categorie_select" required>
+                  <option value="">{{ __('demande.selectionner_categorie') }}</option>
+                  @foreach(array_keys($documents) as $categorie)
+                    <option value="{{ $categorie }}">{{ __('documents.types.' . $categorie) }}</option>
                   @endforeach
                 </select>
                 <input type="hidden" name="categorie_label[]" class="categorie_label" value="">
               </div>
-
               <div class="col-md-6">
-                <label class="form-label">{{ __('demandeClient.sous_type_document') }}</label>
-                <select name="sous_type[]" class="form-select sous_type_select" required style="display:none;"></select>
+                <label class="form-label">{{ __('demande.sous_type_document') }}</label>
+                <select name="sous_type[]" class="form-control sous_type_select" required style="display:none;"></select>
               </div>
             </div>
           </div>
@@ -77,12 +76,12 @@
 
           <!-- Langues -->
           <div class="row mb-3">
-            <div class="col-md-6">
-              <label class="form-label">{{ __('demandeClient.langue_origine') }}</label>
-              <select name="langue_origine" class="form-select" required>
-                <option value="">{{ __('demandeClient.select_lang') }}</option>
-                <option value="Anglais">{{ __('demandeClient.anglais') }}</option>
-                <option value="Arabe">{{ __('demandeClient.arabe') }}</option>
+           <div class="col-md-6">
+              <label class="form-label">{{ __('demande.langue_origine') }}</label>
+              <select name="langue_origine" class="form-control" required>
+                <option value="">{{ __('demande.selectionner_langue') }}</option>
+                <option value="Anglais">{{ __('demande.anglais') }}</option>
+                <option value="Arabe">{{ __('demande.arabe') }}</option>
               </select>
             </div>
 
@@ -124,7 +123,12 @@
 
 @push('scripts')
 <script>
+  const translations = @json(__('documents.types'));
   const sousTypes = @json($documents);
+
+  function translate(key) {
+    return translations[key] || key;
+  }
 
   function updateSousType(select) {
     const group = select.closest('.document_group');
@@ -138,10 +142,10 @@
     labelInput.value = type;
 
     if (sousTypes[type]) {
-      sousTypes[type].forEach(item => {
+      sousTypes[type].forEach(itemKey => {
         const opt = document.createElement('option');
-        opt.value = item;
-        opt.textContent = item;
+        opt.value = itemKey;
+        opt.textContent = translate(itemKey);
         sousSelect.appendChild(opt);
       });
       sousSelect.style.display = 'block';
@@ -154,7 +158,7 @@
     });
   }
 
-  // Initial attach listener for existing selects
+  // Initial attach
   document.querySelectorAll('.categorie_select').forEach(select => {
     addCategorieChangeListener(select);
     if (select.value !== '') {
@@ -179,7 +183,6 @@
 
     addCategorieChangeListener(categorieSelect);
 
-    // Add remove button
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
@@ -189,7 +192,6 @@
     });
 
     clone.appendChild(removeBtn);
-
     container.appendChild(clone);
   });
 

@@ -39,8 +39,8 @@
             <tr>
                 <td>{{ $demande->nom_titulaire }}</td>
                 <td>{{ \Carbon\Carbon::parse($demande->created_at)->format('d/m/Y') }}</td>
-                <td>{{ $demande->langue_origine }}</td>
-                <td>{{ $demande->langue_souhaitee }}</td>
+                            <td>{{ __('demande.' . strtolower($demande->langue_origine)) }}</td>
+                <td>{{ __('demande.' . strtolower($demande->langue_souhaitee)) }}</td>
                 <td>{{ $demande->date_fin ? \Carbon\Carbon::parse($demande->date_fin)->format('d/m/Y') : '—' }}</td>
                 <td>
                     @php
@@ -76,17 +76,16 @@
                   </div>
 
                   <div class="modal-body">
-                    <p><strong>{{ __('app.source_language') }} :</strong> {{ $demande->langue_origine }}</p>
-                    <p><strong>{{ __('app.target_language') }} :</strong> {{ $demande->langue_souhaitee }}</p>
-@foreach($demande->documents ?? [] as $doc)
-    <li class="mb-2">
-        {{-- <strong>{{ __('demande.categorie') }} :</strong>
-        {{ __( $doc['categorie']) ?? ucfirst($doc['categorie']) }}<br> --}}
-
-        <strong>{{ __('demande.sous_type') }} :</strong>
-        {{ __( $doc['sous_type']) ?? ucfirst($doc['sous_type'] ?? '—') }}
-    </li>
-@endforeach
+                    <p><strong>{{ __('app.source_language') }} :</strong> {{ __('demande.' . strtolower($demande->langue_origine)) }}</p>
+                    <p><strong>{{ __('app.target_language') }} :</strong> {{ __('demande.' . strtolower($demande->langue_souhaitee)) }}</p>
+  @foreach($demande->documents ?? [] as $doc)
+        <li class="mb-2">
+            <strong>{{ __('demande.categorie') }} :</strong>
+            {{ __('documents.types.' . $doc['categorie']) ?? $doc['categorie'] }}<br>
+            <strong>{{ __('demande.sous_type_document') }} :</strong>
+            {{ __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'] }}
+        </li>
+    @endforeach
                     <p><strong>{{ __('app.start_date') }} :</strong>
                       {{ $demande->date_debut ? \Carbon\Carbon::parse($demande->date_debut)->format('d/m/Y') : __('app.not_defined') }}
                     </p>

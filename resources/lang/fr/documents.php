@@ -55,7 +55,7 @@ return [
         'Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)' => 'Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)',
         'Dossiers techniques' => 'Dossiers techniques',
 
-        'INTERPRÉTARIAT (SIMULTANÉ OU CONSÉCUTIF...)' => 'INTERPRÉTARIAT (SIMULTANÉ OU CONSÉCUTIF...)',
+        'INTERPRÉTARIAT / SIMULTANÉ OU CONSÉCUTIF' => 'INTERPRÉTARIAT (SIMULTANÉ OU CONSÉCUTIF...)',
         'Assemblées générales' => 'Assemblées générales',
         'Conseils d’administration' => 'Conseils d’administration',
         'Séances de réunions diverses' => 'Séances de réunions diverses',

@@ -228,7 +228,7 @@ class DemandeController extends Controller
             }
         }
 
-        return redirect()->route('suivi_demande.edit', $id)->with('success', 'La demande a été mise à jour avec succès.');
+        return redirect()->route('suivi_demande.edit', $id)->with('success', __('demandes.demande_mise_a_jour_avec_succes'));
     }
 
 
@@ -244,7 +244,7 @@ class DemandeController extends Controller
         $demande->status = $request->status;
         $demande->save();
 
-        return response()->json(['message' => 'Statut mis à jour avec succès']);
+        return response()->json(['message' => __('demande.statut_mis_a_jour')]);
     }
 
     public function download($id, $fichierId)
