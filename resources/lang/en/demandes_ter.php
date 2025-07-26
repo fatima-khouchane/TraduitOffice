@@ -1,0 +1,26 @@
+<?php
+
+return array (
+  'Liste_des_demandes_traduites' => 'List of requests translated',
+  'Rechercher_par_nom_prenom_cin' => 'Search by name, first name or fifty',
+  'Filtrer_par_source' => 'Source by source',
+  'En_ligne' => 'Online',
+  'Agence' => 'Agence',
+  'Choisir_le_mois' => 'Choose',
+  'Imprimer_PDF' => 'Imprints PDF',
+  'Telecharger_Excel' => 'Download Excel',
+  'nom_titulaire' => 'Holder',
+  'nom_demandeur' => 'Applicant',
+  'CIN' => 'CIN',
+  'Telephone' => 'Phone',
+  'Date_debut' => 'Start date',
+  'Date_fin' => 'Date fin',
+  'Status' => 'Status',
+  'Traducteur' => 'Translator',
+  'Demande_saisie_par' => 'Request seized by',
+  'Actions' => 'Actions',
+  'En_cours' => 'In progress',
+  'Terminee' => 'Finished',
+  'Aucune_demande_trouvee' => 'No request found',
+  'Voir_details' => 'See details',
+);

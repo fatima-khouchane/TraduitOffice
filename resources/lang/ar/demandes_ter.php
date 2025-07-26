@@ -1,0 +1,26 @@
+<?php
+
+return array (
+  'Liste_des_demandes_traduites' => 'قائمة الطلبات المترجمة',
+  'Rechercher_par_nom_prenom_cin' => 'البحث بالاسم ، الاسم الأول أو الخمسين',
+  'Filtrer_par_source' => 'مصدر حسب المصدر',
+  'En_ligne' => 'متصل',
+  'Agence' => 'العمال',
+  'Choisir_le_mois' => 'يختار',
+  'Imprimer_PDF' => 'بصمات PDF',
+  'Telecharger_Excel' => 'تنزيل Excel',
+  'nom_titulaire' => 'حامل',
+  'nom_demandeur' => 'مقدم الطلب',
+  'CIN' => 'سين',
+  'Telephone' => 'هاتف',
+  'Date_debut' => 'تاريخ البدء',
+  'Date_fin' => 'تاريخ زعنفة',
+  'Status' => 'حالة',
+  'Traducteur' => 'مترجم',
+  'Demande_saisie_par' => 'طلب تم الاستيلاء عليه بواسطة',
+  'Actions' => 'الإجراءات',
+  'En_cours' => 'في تَقَدم',
+  'Terminee' => 'انتهى',
+  'Aucune_demande_trouvee' => 'لم يتم العثور على طلب',
+  'Voir_details' => 'انظر التفاصيل',
+);

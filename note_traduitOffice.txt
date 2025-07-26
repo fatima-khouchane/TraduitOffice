@@ -1,0 +1,33 @@
+✅ Étapes pour créer un utilisateur via Tinker :
+>php artisan tinker
+
+
+2. Crée un utilisateur manuellement :
+
+>>
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+
+User::create([
+    'name' => 'Admin',
+    'email' => 'admin@gmail.com',
+    'password' => Hash::make('admin123)
+]);
+
+------------------------------------------------------------------------
+cloner un projet Laravel depuis GitHub
+
+>git clone https://github.com/utilisateur/nom-du-projet.git
+>cd nom-du-projet
+>composer install
+>npm install && npm run dev
+>cp .env.example .env
+>php artisan key:generate
+
+6. ⚙️ Configurer .env
+
+
+php artisan migrate
+
+php artisan serve
+
