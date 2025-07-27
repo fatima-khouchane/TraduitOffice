@@ -10,12 +10,27 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StatistiqueController;
 use App\Http\Controllers\Translator\TaskController;
 use App\Models\Demande;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 // login
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); // Crée cette vue personnalisée si besoin
+})->middleware('auth')->name('verification.notice');
 
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // Confirme l’email
+
+    return redirect('/client/mes-demandes'); // ou autre route après validation
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Un nouveau lien de vérification a été envoyé à votre adresse email.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
 Route::post('/register', [AuthController::class, 'registerClient'])->name('client.register');
@@ -28,7 +43,7 @@ Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
 
 
     Route::get('/demande/create', [DemandeController::class, 'create'])->name('demande.create'); //afichage de form

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -44,6 +45,7 @@ class AuthController extends Controller
         return view('auth.register'); // view inscription
     }
 
+
     public function registerClient(Request $request)
     {
         $validated = $request->validate([
@@ -61,11 +63,14 @@ class AuthController extends Controller
             'role' => 'client',
         ]);
 
+        // Envoie automatique de l’email de vérification
+        event(new Registered($user));
+
         Auth::login($user);
 
-        // Redirection vers page de vérification d'email
-        return redirect()->route('client.mes_demandes');
+        return redirect()->route('verification.notice'); // Redirige vers la page "vérifiez votre email"
     }
+
 
 
     public function logout(Request $request)
