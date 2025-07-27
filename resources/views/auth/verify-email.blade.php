@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ app()->getLocale() }}" @if(app()->getLocale() === 'ar') dir="rtl" @endif>
 <head>
     <meta charset="UTF-8">
 
@@ -19,18 +19,19 @@
                 <i class="bi bi-envelope-check-fill text-primary" style="font-size: 4rem;"></i>
             </div>
 
-            <h2 class="mb-3 text-primary fw-bold">Vérifiez votre adresse email</h2>
+          <h2 class="mb-3 text-primary fw-bold">{{ __('auth.verify_title') }}</h2>
 
-            <p class="text-secondary fs-5">
-                Un email de confirmation vous a été envoyé.<br>
-                Cliquez sur le lien dans cet email pour activer votre compte.
-            </p>
+<p class="text-secondary fs-5">
+    {{ __('auth.verify_message_line1') }}<br>
+    {{ __('auth.verify_message_line2') }}
+</p>
 
-            @if (session('message'))
-                <div class="alert alert-success mt-4">
-                    {{ session('message') }}
-                </div>
-            @endif
+@if (session('message'))
+    <div class="alert alert-success mt-4">
+        {{ session('message') }}
+    </div>
+@endif
+
         </div>
     </div>
 </div>
