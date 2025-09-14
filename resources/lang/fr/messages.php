@@ -7,7 +7,7 @@ return [
 <br><br>
 ✔️ Traduction de documents juridiques, administratifs, scolaires, ou à usage officiel.
 <br>
-✔️ Service disponible partout au Maroc. Envoyez vos fichiers PDF et recevez la traduction directement par email.
+✔️ Service disponible partout au Maroc. Envoyez vos fichiers PDF et recevez la traduction directement à votre domicile par Amana, qui est le service de livraison numéro 1 au Maroc.
 <br>
 🔐 Rapidité, confidentialité et qualité garanties.",
 
@@ -22,6 +22,11 @@ return [
         'submit_button' => 'Se connecter',
         'password_toggle_show' => 'Afficher le mot de passe',
         'password_toggle_hide' => 'Masquer le mot de passe',
+        'no_account' => "Pas encore de compte ? S'inscrire",
+        'already_account' => 'Vous avez déjà un compte ? Se connecter',
+        'welcome_back' => 'Retour à l\'accueil',
+
+
     ],
     'register_page' => [
         'title' => 'Inscription Client',
@@ -69,4 +74,5 @@ return [
     'list' => 'Liste des messages',
     'request_number' => 'Demande #:id',
     'no_messages' => 'Aucun message reçu.',
+
 ];

@@ -1,11 +1,12 @@
 <?php
 
-return array(
-    'edit_title' => 'Modify the profile',
-    'name' => 'Nom',
+return [
+    'edit_title' => 'Edit Profile',
+    'name' => 'Name',
     'password' => 'Password (leave empty if unchanged)',
-    'confirm_password' => 'Confirm the password',
+    'confirm_password' => 'Confirm Password',
     'save' => 'Save',
-    'updated_success' => 'Profile successfully updated.',
+    'updated_success' => 'Profile updated successfully.',
+    'back' => 'Back',
 
-);
+];

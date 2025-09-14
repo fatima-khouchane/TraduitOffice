@@ -7,5 +7,7 @@ return [
     'confirm_password' => 'Confirmer le mot de passe',
     'save' => 'Enregistrer',
     'updated_success' => 'Profil mis à jour avec succès.',
+    'back' => 'Retour',
+
 
 ];

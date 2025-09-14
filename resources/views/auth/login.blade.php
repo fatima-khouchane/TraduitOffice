@@ -77,9 +77,22 @@
                     @error('password') <div class="text-danger">{{ $message }}</div> @enderror
                 </div>
 
-<button type="submit" class="btn btn-primary w-100">
-    {{ __('messages.login_page.submit_button') }}
-</button>            </form>
+                <button type="submit" class="btn btn-primary w-100">
+                    {{ __('messages.login_page.submit_button') }}
+                </button>
+ </form>
+<div class="text-center mt-3">
+    <a href="{{ route('register') }}" class="text-decoration-none">
+        {{ __('messages.login_page.no_account') }}
+    </a>
+</div>
+<div class="text-center mt-2">
+    <!-- Lien retour à l'accueil avec style différent -->
+    <a href="{{ url('/') }}" class="text-decoration-none text-muted small d-block">
+        <i class="bi bi-arrow-left"></i> {{ __('messages.login_page.welcome_back') }}
+    </a>
+</div>
+
         </div>
     </div>
 </div>

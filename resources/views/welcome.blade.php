@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
-    <style>
+<style>
         body {
             background-color: #f4f6f9;
             font-family: 'Segoe UI', sans-serif;
@@ -140,9 +140,9 @@
 
     <div class="text-section">
         <div>
-          <a href="{{ route('lang.switch', 'fr') }}">🇫🇷 Français</a> |
-    <a href="{{ route('lang.switch', 'en') }}">🇬🇧 English</a> |
-    <a href="{{ route('lang.switch', 'ar') }}">🇸🇦 العربية</a>
+          <a href="{{ route('lang.switch', 'fr') }}"> Français</a> |
+    <a href="{{ route('lang.switch', 'en') }}"> English</a> |
+    <a href="{{ route('lang.switch', 'ar') }}"> العربية|</a>
         </div>
 <h1>{{ __('messages.welcome_title') }}</h1>
        <p>{!! __('messages.welcome_description') !!}</p>

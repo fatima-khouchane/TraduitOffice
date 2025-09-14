@@ -1,12 +1,10 @@
 <?php
-
-return array(
+return [
     'add_title' => 'إضافة مترجم',
     'full_name' => 'الاسم الكامل',
-    'email' => 'بريد إلكتروني',
-    'phone' => 'هاتف',
+    'email' => 'البريد الإلكتروني',
+    'phone' => 'الهاتف',
     'password' => 'كلمة المرور',
     'create_account' => 'إنشاء الحساب',
-    'traducteur_ajoute_avec_succes' => 'تم إضافة المترجم بنجاح.',
-
-);
+    'traducteur_ajoute_avec_succes' => 'تمت إضافة المترجم بنجاح.',
+];

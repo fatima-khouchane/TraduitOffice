@@ -1,33 +1,28 @@
 <?php
 
-return array (
-  'title' => 'Applications confirmed by the Customer',
-  'alert_success' => 'Successful operation',
-  'no_demandes' => 'No claims confirmed.',
-  'table' => 
-  array (
-    'nom_titulaire' => 'Holder',
-    'nom_demandeur' => 'Applicant',
-    'date_fin' => 'Date fin',
-    'status' => 'Status',
-    'status_confirmed' => 'Confirmed',
-    'client' => 'Client',
-    'prix_total' => 'Total price (MAD)',
-    'adresse' => 'Address',
-    'actions' => 'Actions',
-    'view_messages' => 'See messages',
-    'send_message' => 'Send message',
-    'messages_history_title' => 'Messages history for request #: ID',
-    'no_messages' => 'No message sent for this request.',
-    'send_message_modal_title' => 'Send a message to the customer',
-    'send_button' => 'Send',
-    'cancel_button' => 'Cancel',
-    'close_button' => 'Close',
-    'message_placeholder' => 'Good morning,
+return [
+    'title' => 'Requests Confirmed by the Client',
+    'alert_success' => 'Operation Successful',
+    'no_demandes' => 'No requests have been confirmed.',
 
-Your files are sent to the address :: Address.
-The total price for this request is: MAD price.
-
-Thank you for your confidence.',
-  ),
-);
+    'table' => [
+        'nom_titulaire' => 'Holder Name',
+        'nom_demandeur' => 'Applicant Name',
+        'date_fin' => 'End Date',
+        'status' => 'Status',
+        'status_confirmed' => 'Confirmed',
+        'client' => 'Client',
+        'prix_total' => 'Total Price (MAD)',
+        'adresse' => 'Address',
+        'actions' => 'Actions',
+        'view_messages' => 'View Messages',
+        'send_message' => 'Send Message',
+        'messages_history_title' => 'Message History for Request #:id',
+        'no_messages' => 'No messages sent for this request.',
+        'send_message_modal_title' => 'Send a Message to the Client',
+        'send_button' => 'Send',
+        'cancel_button' => 'Cancel',
+        'close_button' => 'Close',
+        'message_placeholder' => "Hello,\n\nYour files have been sent to the following address: :adresse.\nThe total price for this request is :prix MAD.\n\nThank you for your trust.",
+    ],
+];

@@ -52,10 +52,23 @@
                 </div>
             </div>
 
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">{{ __('profile.save') }}</button>
-            </div>
+
+
+
+            <div class="d-flex justify-content-between mt-3">
+    <!-- Bouton retour -->
+    <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> {{ __('profile.back') }}
+    </a>
+
+    <!-- Bouton sauvegarder -->
+    <button type="submit" class="btn btn-primary">
+        {{ __('profile.save') }}
+    </button>
+</div>
+
         </form>
+
     </div>
 
 @push('scripts')

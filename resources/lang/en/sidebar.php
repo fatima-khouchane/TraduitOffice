@@ -1,13 +1,12 @@
 <?php
-
-return array (
-  'nouvelle_demande' => 'New request',
-  'suivi_demande' => 'Request monitoring',
-  'fichier_traduit' => 'Translated file',
-  'ajouter_traducteur' => 'Add a translator',
-  'liste_traducteurs' => 'List of translators',
-  'demandes_confirmees' => 'Confirmed requests',
-  'statistique' => 'Statistical',
-  'profil' => 'Profile',
-  'deconnexion' => 'Disconnection',
-);
+return [
+    'nouvelle_demande' => 'New Request',
+    'suivi_demande' => 'Request Tracking',
+    'fichier_traduit' => 'Translated File',
+    'ajouter_traducteur' => 'Add Translator',
+    'liste_traducteurs' => 'Translators List',
+    'demandes_confirmees' => 'Confirmed Requests',
+    'statistique' => 'Statistics',
+    'profil' => 'Profile',
+    'deconnexion' => 'Logout',
+];

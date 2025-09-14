@@ -69,8 +69,29 @@
         </li>
         @endif
     </ul>
+<div class="dropdown mt-2 mb-3">
+    <a href="#" class="user-section dropdown-toggle text-decoration-none d-flex align-items-center"
+       id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="bi bi-translate fs-5"></i>
+        <span class="ms-2 label brand-text brand-text1">
+            @if(app()->getLocale() == 'fr') Français
+            @elseif(app()->getLocale() == 'en') English
+            @elseif(app()->getLocale() == 'ar') العربية
+            @endif
+        </span>
+        <i class="ms-2 bi bi-caret-down-fill"></i>
+    </a>
 
-    <hr class="border-light" />
+    <ul class="dropdown-menu dropdown-menu-end text-small shadow" aria-labelledby="langDropdown">
+        <li><a class="dropdown-item {{ app()->getLocale() == 'fr' ? 'active' : '' }}" href="{{ route('lang.switch', 'fr') }}">Français</a></li>
+        <li><a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('lang.switch', 'en') }}">English</a></li>
+        <li><a class="dropdown-item {{ app()->getLocale() == 'ar' ? 'active' : '' }}" href="{{ route('lang.switch', 'ar') }}">العربية</a></li>
+    </ul>
+</div>
+<hr class="border-light" />
+
+<!-- Dropdown langues -->
+
 
     <!-- Dropdown utilisateur -->
     <div class="dropdown mt-auto">

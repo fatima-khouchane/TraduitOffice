@@ -1,3 +1,8 @@
+voir tout les user
+User::all();
+
+
+
 ✅ Étapes pour créer un utilisateur via Tinker :
 >php artisan tinker
 
@@ -8,11 +13,15 @@
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
-User::create([
-    'name' => 'Admin',
-    'email' => 'admin@gmail.com',
-    'password' => Hash::make('admin123)
-]);
+// création d'un user admin
+$user = new User();
+$user->name = 'admin';                   // username
+$user->email = 'admin@gmail.com';        // email obligatoire
+$user->password = Hash::make('password'); // mot de passe hashé
+$user->email_verified_at = now();        // déjà vérifié
+$user->role = 'admin';                   // rôle admin si tu utilises le champ role
+
+$user->save();
 
 ------------------------------------------------------------------------
 cloner un projet Laravel depuis GitHub

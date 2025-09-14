@@ -29,6 +29,7 @@ class TranslatorController extends Controller
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'role' => 'translator',
+            'email_verified_at' => now(),
         ]);
 
         return redirect()->route('admin.translators.create')->with('success', __('translator.traducteur_ajoute_avec_succes'));
