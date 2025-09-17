@@ -120,12 +120,12 @@
               <input type="file" name="fichiers[]" class="form-control" accept="application/pdf,image/*">
             </div>
           </div>
-
+<span>
           <button type="button" class="btn btn-secondary" id="add_file_btn">
             + {{ __('demande.ajouter_fichier') }}
           </button>
 
-          <button type="submit" class="btn btn-primary mt-3">
+          <button type="submit" class="btn btn-primary ">
             {{ __('demande.envoyer_demande') }}
           </button>
         </form>

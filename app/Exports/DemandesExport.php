@@ -26,7 +26,10 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
     {
         return $this->demandes->map(function ($demande) {
             $documents = is_string($demande->documents) ? json_decode($demande->documents, true) : $demande->documents;
-            $sousTypes = collect($documents)->pluck('sous_type')->implode(', ');
+
+            $sousTypes = collect($documents)->map(function ($doc) {
+                return __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'];
+            })->implode(', ');
 
             return [
                 'nom_titulaire' => $demande->nom_titulaire,
@@ -44,34 +47,33 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
     public function headings(): array
     {
         return [
-            'Nom Titulaire',
-            'Nom Demandeur',
-            'CIN',
-            'Téléphone',
-            'Date Début',
-            'Date Fin',
-            'Prix Total',
-            'Documents',
+            __('pdf.nom_titulaire'),
+            __('pdf.nom_demandeur'),
+            __('pdf.cin'),
+            __('pdf.telephone'),
+            __('pdf.date_debut'),
+            __('pdf.date_fin'),
+            __('pdf.prix_total'),
+            __('pdf.documents_traduits'),
         ];
     }
 
     public function styles(Worksheet $sheet)
     {
-        // Style de base pour la feuille (optionnel)
         return [
             // En-tête (ligne 1)
             1 => [
                 'font' => ['bold' => true, 'color' => ['argb' => 'FFFFFFFF']],
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
-                    'startColor' => ['argb' => 'FF4CAF50'], // vert moyen
+                    'startColor' => ['argb' => 'FF0D47A1'], // bleu foncé
                 ],
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
                 'borders' => [
                     'allBorders' => ['borderStyle' => Border::BORDER_THIN],
                 ],
             ],
-            // Tout le tableau (pour avoir bordure fine)
+            // Bordures pour tout le tableau
             'A1:H' . ($this->demandes->count() + 1) => [
                 'borders' => [
                     'allBorders' => ['borderStyle' => Border::BORDER_THIN],
@@ -81,7 +83,7 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
             'G2:G' . ($this->demandes->count() + 1) => [
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_RIGHT],
             ],
-            // Colonne dates centrées
+            // Colonnes dates centrées
             'E2:F' . ($this->demandes->count() + 1) => [
                 'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
             ],
@@ -93,20 +95,20 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
         return [
             AfterSheet::class => function (AfterSheet $event) {
                 $sheet = $event->sheet->getDelegate();
-                $count = $this->demandes->count() + 2; // ligne du total = header + nb lignes + 1
+                $count = $this->demandes->count() + 2; // ligne total = header + nb lignes + 1
     
                 $total = $this->demandes->sum('prix_total');
 
-                // Écrire "Total:" dans la colonne F, et la somme dans la colonne G
-                $sheet->setCellValue('F' . $count, 'Total:');
+                // Écrire "Total:" traduit
+                $sheet->setCellValue('F' . $count, __('pdf.total') . ':');
                 $sheet->setCellValue('G' . $count, $total);
 
                 // Style de la ligne total
                 $sheet->getStyle('A' . $count . ':H' . $count)->applyFromArray([
-                    'font' => ['bold' => true, 'color' => ['argb' => 'FF000000']],
+                    'font' => ['bold' => true, 'color' => ['argb' => 'FFFFFFFF']],
                     'fill' => [
                         'fillType' => Fill::FILL_SOLID,
-                        'startColor' => ['argb' => 'FFB9F6CA'], // vert clair
+                        'startColor' => ['argb' => 'FF0D47A1'], // bleu foncé
                     ],
                     'alignment' => ['horizontal' => Alignment::HORIZONTAL_CENTER],
                     'borders' => [
@@ -117,7 +119,7 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
                 // Alignement droite pour le total
                 $sheet->getStyle('G' . $count)->getAlignment()->setHorizontal(Alignment::HORIZONTAL_RIGHT);
 
-                // Ajuster automatiquement la largeur des colonnes A à H
+                // Ajuster automatiquement la largeur des colonnes
                 foreach (range('A', 'H') as $col) {
                     $sheet->getColumnDimension($col)->setAutoSize(true);
                 }

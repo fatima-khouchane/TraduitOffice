@@ -72,7 +72,6 @@
                 <div class="modal-content">
                   <div class="modal-header">
                     <h5 class="modal-title" id="modalLabel-{{ $demande->id }}">{{ __('app.request_details') }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="{{ __('app.close') }}"></button>
                   </div>
 
                   <div class="modal-body">
@@ -148,7 +147,7 @@
                         </div>
                       @endif
 
-                      @if ($demande->messages->count() > 0)
+                      {{-- @if ($demande->messages->count() > 0)
                         <div class="card mb-4">
                             <div class="card-header bg-primary text-white">
                                 <i class="bi bi-envelope"></i> {{ __('app.received_messages') }}
@@ -169,7 +168,7 @@
                         <div class="alert alert-info">
                             <i class="bi bi-info-circle"></i> {{ __('app.no_messages_received') }}
                         </div>
-                      @endif
+                      @endif --}}
 
                       </h5>
 

@@ -15,4 +15,6 @@ return array(
     'categorie' => 'Category',
     'sous_type' => 'Subtype',
     'montant_total' => 'Total Amount for the Month:',
+    'total' => 'Total',
+
 );

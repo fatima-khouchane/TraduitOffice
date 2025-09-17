@@ -108,11 +108,11 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-secondary mb-3" id="add_file_btn">
+          <button type="button" class="btn btn-secondary " id="add_file_btn">
             + {{ __('demandeClient.ajouter_fichier') }}
           </button>
 
-          <button type="submit" class="btn btn-primary mt-3">{{ __('demandeClient.envoyer') }}</button>
+          <button type="submit" class="btn btn-primary ">{{ __('demandeClient.envoyer') }}</button>
 
         </form>
       </div>

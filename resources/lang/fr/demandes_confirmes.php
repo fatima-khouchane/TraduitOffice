@@ -24,5 +24,7 @@ return [
         'cancel_button' => 'Annuler',
         'close_button' => 'Fermer',
         'message_placeholder' => "Bonjour,\n\nVos fichiers sont envoyés à l'adresse : :adresse.\nLe prix total pour cette demande est de :prix MAD.\n\nMerci pour votre confiance.",
+        'sent_at' => 'Envoyé le',
+
     ],
 ];

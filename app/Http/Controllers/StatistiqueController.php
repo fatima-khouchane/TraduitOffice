@@ -12,37 +12,55 @@ class StatistiqueController extends Controller
 {
     public function index()
     {
+        // Nombre de documents terminés et en cours
         $documents_termines = Demande::where('status', 'terminee')->count();
         $documents_en_cours = Demande::where('status', 'en_cours')->count();
 
+        // Langue la plus traduite
         $langue_plus_traduite = Demande::select('langue_origine', 'langue_souhaitee', DB::raw('count(*) as total'))
             ->groupBy('langue_origine', 'langue_souhaitee')
             ->orderByDesc('total')
             ->limit(1)
             ->first();
 
-        $categories_top = Demande::select(
-            DB::raw('CONCAT(
-                JSON_UNQUOTE(JSON_EXTRACT(documents, "$[0].categorie")),
-                IF(JSON_EXTRACT(documents, "$[0].sous_type") IS NOT NULL,
-                    CONCAT(" → ", JSON_UNQUOTE(JSON_EXTRACT(documents, "$[0].sous_type"))),
-                    ""
-                )
-            ) as categorie_complete'),
+        // Top catégories (avec traduction)
+        $categories_top_raw = Demande::select(
+            DB::raw('JSON_EXTRACT(documents, "$[0].categorie") as categorie'),
+            DB::raw('JSON_EXTRACT(documents, "$[0].sous_type") as sous_type'),
             DB::raw('count(*) as total')
         )
-            ->groupBy('categorie_complete')
+            ->groupBy('categorie', 'sous_type')
             ->orderByDesc('total')
             ->limit(5)
             ->get();
 
+        $categories_top = $categories_top_raw->map(function ($item) {
+            $categorie = json_decode($item->categorie, true);
+            $sous_type = json_decode($item->sous_type, true);
+
+            // Traduction via config/documents.php -> types
+            if ($sous_type && __('documents.types.' . $sous_type) !== 'documents.types.' . $sous_type) {
+                $categorie_complete = __('documents.types.' . $sous_type);
+            } elseif ($categorie && __('documents.types.' . $categorie) !== 'documents.types.' . $categorie) {
+                $categorie_complete = __('documents.types.' . $categorie);
+            } else {
+                $categorie_complete = $categorie ?? 'N/A';
+            }
+
+            return (object) [
+                'categorie_complete' => $categorie_complete,
+                'total' => $item->total
+            ];
+        });
+
+        // Graphique des mois
         $mois = [];
         $valeurs = [];
         $annee = request('annee', now()->year);
 
         for ($i = 1; $i <= 12; $i++) {
             $date = Carbon::createFromDate($annee, $i, 1);
-            $mois[] = $date->translatedFormat('F'); // Mois en français, ex : "Janvier"
+            $mois[] = $date->translatedFormat('F'); // Mois traduit selon la locale
 
             $startOfMonth = $date->copy()->startOfMonth();
             $endOfMonth = $date->copy()->endOfMonth();
@@ -57,10 +75,12 @@ class StatistiqueController extends Controller
             $valeurs[] = $count;
         }
 
+        // Clients en ligne
         $clients_en_ligne = User::whereHas('demandes', function ($query) {
             $query->where('is_online', true);
         })->count();
 
+        // Retour de la vue
         return view('statistique', compact(
             'documents_termines',
             'documents_en_cours',
@@ -69,9 +89,9 @@ class StatistiqueController extends Controller
             'mois',
             'valeurs',
             'clients_en_ligne'
-
         ));
     }
+
 }
 
 

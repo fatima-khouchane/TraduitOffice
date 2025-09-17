@@ -28,7 +28,24 @@
 
                     <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
                         <ul class="navbar-nav align-items-center gap-3">
+                         
+
                             <li class="nav-item">
+                                <a class="nav-link fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('demande.create_client') ? 'active' : '' }}"
+                                href="{{ route('demande.create_client') }}">
+                                    <i class="bi bi-plus-circle text-primary"></i>
+                                    <span>{{ __('app.new_request') }}</span> {{-- Nouvelle demande --}}
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('client.home') ? 'active' : '' }}"
+                                href="{{ route('client.mes_demandes') }}">
+                                    <i class="bi bi-journal-text text-primary"></i>
+                                    <span>{{ __('app.track_requests') }}</span> {{-- Suivi des demandes --}}
+                                </a>
+                            </li>
+  <li class="nav-item">
                                 <a class="nav-link position-relative fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('client.messages') ? 'active' : '' }}"
                                 href="{{ route('client.messages') }}">
                                     <i class="bi bi-envelope text-primary fs-5"></i>
@@ -47,22 +64,6 @@
                                             <span class="visually-hidden">{{ __('app.unread') }}</span> {{-- non lus --}}
                                         </span>
                                     @endif
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('demande.create_client') ? 'active' : '' }}"
-                                href="{{ route('demande.create_client') }}">
-                                    <i class="bi bi-plus-circle text-primary"></i>
-                                    <span>{{ __('app.new_request') }}</span> {{-- Nouvelle demande --}}
-                                </a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link fw-medium text-dark d-flex align-items-center gap-1 {{ request()->routeIs('client.home') ? 'active' : '' }}"
-                                href="{{ route('client.mes_demandes') }}">
-                                    <i class="bi bi-journal-text text-primary"></i>
-                                    <span>{{ __('app.track_requests') }}</span> {{-- Suivi des demandes --}}
                                 </a>
                             </li>
 

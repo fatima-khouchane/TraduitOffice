@@ -39,14 +39,12 @@ body.ltr {
 #sidebar {
   position: fixed;
   top: 0;
-  height: 100vh;
+  bottom: 0; /* s’assurer qu’il prend toute la hauteur */
   width: 220px;
   background-color: #003566;
-  transition: width 0.3s;
-  overflow-x: hidden;
   overflow-y: auto;
-  z-index: 1000;
 }
+
 
 body.ltr #sidebar { left: 0; right: auto; }
 body.rtl #sidebar { right: 0; left: auto; }

@@ -24,5 +24,7 @@ return [
         'cancel_button' => 'Cancel',
         'close_button' => 'Close',
         'message_placeholder' => "Hello,\n\nYour files have been sent to the following address: :adresse.\nThe total price for this request is :prix MAD.\n\nThank you for your trust.",
+        'sent_at' => 'Sent on',
+
     ],
 ];

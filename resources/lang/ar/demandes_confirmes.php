@@ -23,5 +23,7 @@ return [
         'cancel_button' => 'إلغاء',
         'close_button' => 'إغلاق',
         'message_placeholder' => "مرحبًا،\n\nتم إرسال ملفاتك إلى العنوان التالي: :adresse.\nالسعر الإجمالي لهذا الطلب هو: :prix MAD.\n\nشكرًا لك على ثقتك.",
+        'sent_at' => 'تم الإرسال في',
+
     ],
 ];

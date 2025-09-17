@@ -15,4 +15,6 @@ return array(
     'categorie' => 'الفئة',
     'sous_type' => 'النوع الفرعي',
     'montant_total' => 'المبلغ الإجمالي للشهر:',
+    'total' => 'المجموع',
+
 );

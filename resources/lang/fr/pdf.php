@@ -14,4 +14,6 @@ return [
     'categorie' => 'Catégorie',
     'sous_type' => 'Sous-type',
     'montant_total' => 'Montant total du mois :',
+    'total' => 'Total',
+
 ];

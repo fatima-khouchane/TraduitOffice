@@ -40,3 +40,5 @@ php artisan migrate
 
 php artisan serve
 
+
+gerer si email deja saisir dans registre

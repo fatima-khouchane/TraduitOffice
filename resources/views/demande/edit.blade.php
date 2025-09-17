@@ -171,7 +171,10 @@
           <button type="button" class="btn btn-secondary" id="add_file_btn">+ {{ __('demandes.ajouter_autre_fichier') }}</button>
 
           <!-- Submit -->
-          <button type="submit" class="btn btn-primary mt-3">{{ __('demandes.mettre_a_jour') }}</button>
+          <button type="submit" class="btn btn-primary ">{{ __('demandes.mettre_a_jour') }}</button>
+             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left"></i> {{ __('profile.back') }}
+    </a>
         </form>
       </div>
     </div>

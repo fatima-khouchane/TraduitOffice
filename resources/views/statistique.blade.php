@@ -47,12 +47,13 @@
     <div class="card bg-white shadow-lg border-0 rounded-4 p-4 mb-5">
         <h5 class="mb-4 fw-bold text-center">🏷️ {{ __('dashboard.top_categories') }}</h5>
         <ul class="list-group">
-            @foreach ($categories_top as $cat)
-                <li class="list-group-item d-flex justify-content-between">
-                    {{ $cat->categorie_complete }}
-                    <span class="badge bg-success rounded-pill">{{ $cat->total }}</span>
-                </li>
-            @endforeach
+           @foreach ($categories_top as $cat)
+            <li class="list-group-item d-flex justify-content-between">
+                {{ $cat->categorie_complete }}
+                <span class="badge bg-success rounded-pill">{{ $cat->total }}</span>
+            </li>
+@endforeach
+
         </ul>
     </div>
 

@@ -12,7 +12,7 @@
         .table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .table th, .table td { border: 1px solid #000; padding: 6px; }
         .table th {
-            background-color: #B9F6CA;
+            background-color: #b9daf6;
             font-weight: bold;
             text-align: center;
         }
@@ -53,9 +53,9 @@
                          <ul>
    @foreach($demande->documents ?? [] as $doc)
         <li class="mb-2">
-            <strong>{{ __('demande.categorie') }} :</strong>
+            {{-- <strong>{{ __('demande.categorie') }} :</strong>
             {{ __('documents.types.' . $doc['categorie']) ?? $doc['categorie'] }}<br>
-            <strong>{{ __('demande.sous_type_document') }} :</strong>
+            <strong>{{ __('demande.sous_type_document') }} :</strong> --}}
             {{ __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'] }}
         </li>
     @endforeach
