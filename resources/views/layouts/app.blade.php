@@ -40,9 +40,8 @@ body.ltr {
   position: fixed;
   top: 0;
   bottom: 0; /* s’assurer qu’il prend toute la hauteur */
-  width: 220px;
+  width: 240px;
   background-color: #003566;
-  overflow-y: auto;
 }
 
 

@@ -135,14 +135,27 @@
 </div>
 
 <script>
-  const translations = @json(__('documents.types'));
-  const sousTypes = @json($documents);
+ const allTranslations = {
+    'fr': @json(__('documents.types')),
+    'fr_sous': @json(__('documents.sous_types')),
+    'en': @json(__('documents.types', [], 'en')),
+    'en_sous': @json(__('documents.sous_types', [], 'en')),
+    'ar': @json(__('documents.types', [], 'ar')),
+    'ar_sous': @json(__('documents.sous_types', [], 'ar')),
+};
 
-  function translate(key) {
-    return translations[key] || key;
-  }
+let currentLang = '{{ app()->getLocale() }}';
 
-  function updateSousType(select) {
+// Fonction de traduction
+function translate(key, type = null) {
+    if(type && allTranslations[currentLang + '_sous'][type] && allTranslations[currentLang + '_sous'][type][key]){
+        return allTranslations[currentLang + '_sous'][type][key];
+    }
+    return allTranslations[currentLang][key] || key;
+}
+
+// Mettre à jour les sous-types
+function updateSousType(select) {
     const group = select.closest('.document_group');
     const sousSelect = group.querySelector('.sous_type_select');
     const labelInput = group.querySelector('.categorie_label');
@@ -153,24 +166,26 @@
     const type = select.value;
     labelInput.value = type;
 
-    if (sousTypes[type]) {
-      sousTypes[type].forEach(itemKey => {
-        const opt = document.createElement('option');
-        opt.value = itemKey;
-        opt.textContent = translate(itemKey);
-        sousSelect.appendChild(opt);
-      });
-      sousSelect.style.display = 'block';
+    if (allTranslations[currentLang + '_sous'][type]) {
+        Object.keys(allTranslations[currentLang + '_sous'][type]).forEach(key => {
+            const opt = document.createElement('option');
+            opt.value = key; // garder la clé comme valeur
+            opt.textContent = translate(key, type); // traduction selon la langue
+            sousSelect.appendChild(opt);
+        });
+        sousSelect.style.display = 'block';
     }
-  }
+}
 
-  document.querySelectorAll('.categorie_select').forEach(select => {
+// Initialisation des select existants
+document.querySelectorAll('.categorie_select').forEach(select => {
     select.addEventListener('change', function () {
-      updateSousType(this);
+        updateSousType(this);
     });
-  });
+});
 
-  document.getElementById('add_document').addEventListener('click', () => {
+// Ajouter un nouveau document
+document.getElementById('add_document').addEventListener('click', () => {
     const container = document.getElementById('documents_container');
     const original = container.querySelector('.document_group');
     const clone = original.cloneNode(true);
@@ -185,7 +200,7 @@
     sousSelect.style.display = 'none';
 
     categorieSelect.addEventListener('change', function () {
-      updateSousType(this);
+        updateSousType(this);
     });
 
     const cancelBtn = document.createElement('button');
@@ -193,37 +208,13 @@
     cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
     cancelBtn.innerText = '✖ Supprimer';
     cancelBtn.addEventListener('click', () => {
-      clone.remove();
+        clone.remove();
     });
 
     clone.appendChild(cancelBtn);
     container.appendChild(clone);
-  });
+});
 
-  document.getElementById('add_file_btn').addEventListener('click', () => {
-    const container = document.getElementById('fichiers_container');
-
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('d-flex', 'align-items-center', 'gap-2', 'mt-2');
-
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'fichiers[]';
-    input.classList.add('form-control');
-    input.accept = 'application/pdf,image/*';
-
-    const cancelBtn = document.createElement('button');
-    cancelBtn.type = 'button';
-    cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm');
-    cancelBtn.innerText = '✖';
-
-    cancelBtn.addEventListener('click', () => {
-      wrapper.remove();
-    });
-
-    wrapper.appendChild(input);
-    wrapper.appendChild(cancelBtn);
-    container.appendChild(wrapper);
-  });
 </script>
+
 @endsection

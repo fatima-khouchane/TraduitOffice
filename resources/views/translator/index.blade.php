@@ -105,7 +105,14 @@
     box-shadow: 0 6px 18px rgba(0,0,0,0.08);
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
+
+    /* ✅ Fix overflow text */
+    word-wrap: break-word;        /* coupe les mots trop longs */
+    overflow-wrap: break-word;    /* version moderne */
+    white-space: normal;          /* permet le retour à la ligne */
+    max-width: 100%;              /* empêche le débordement horizontal */
 }
+
 .timeline-content h5 { color: #2575fc; font-weight: 600; margin-bottom: 0.5rem; }
 .timeline-content p { margin: 0.3rem 0; font-size: 0.9rem; color: #555; }
 .badge { font-size: 0.75rem; padding: 0.35rem 0.6rem; border-radius: 0.75rem; }
@@ -160,13 +167,7 @@
 }
 
 /* Responsive avatars */
-@media (max-width: 768px) {
-    .timeline-avatar { left: -10px !important; top: 10px; }
-    .timeline-modern.rtl .timeline-item .timeline-avatar {
-        left: auto !important;
-        right: -10px !important;
-    }
-}
+
 
 
 /* RTL cards */
@@ -177,6 +178,58 @@
 .timeline-modern.rtl .timeline-item.right .timeline-content {
     margin-right: 40px;
     margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    .timeline-modern::before {
+        left: 20px; /* déplace la ligne sur la gauche */
+        right: auto;
+    }
+
+    .timeline-item,
+    .timeline-item.left,
+    .timeline-item.right {
+        width: 100%;
+        left: 0 !important;
+        right: 0 !important;
+        text-align: left !important;
+        padding: 0 1rem 2rem 3rem; /* espace 3rem pour la ligne à gauche */
+        margin-bottom: 2rem;
+    }
+
+    /* Avatar (dot) */
+    .timeline-avatar {
+        left: 0 !important;
+        right: auto !important;
+        top: 0.5rem;
+    }
+
+    /* Contenu (card) */
+    .timeline-content {
+        margin-left: 2.5rem;  /* card décalée à droite de la ligne */
+        margin-right: 0 !important;
+    }
+
+    /* RTL mode (arabe) */
+    .timeline-modern.rtl::before {
+        right: 20px;
+        left: auto;
+    }
+    .timeline-modern.rtl .timeline-item,
+    .timeline-modern.rtl .timeline-item.left,
+    .timeline-modern.rtl .timeline-item.right {
+        text-align: right !important;
+        padding: 0 3rem 2rem 1rem; /* espace 3rem à droite */
+    }
+    .timeline-modern.rtl .timeline-avatar {
+        right: 0 !important;
+        left: auto !important;
+    }
+    .timeline-modern.rtl .timeline-content {
+        margin-right: 2.5rem;
+        margin-left: 0 !important;
+    }
+
 }
 
 </style>

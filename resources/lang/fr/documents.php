@@ -1,64 +1,94 @@
 <?php
 
 return [
+
+    // --- Types principaux ---
     'types' => [
         'PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE' => 'PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE',
-        'Certificat de résidence' => 'Certificat de résidence',
-        'Attestation de célibat' => 'Attestation de célibat',
-        'Extrait d’acte de naissance' => 'Extrait d’acte de naissance',
-        'Copie intégrale d’acte de naissance' => 'Copie intégrale d’acte de naissance',
-        'Extrait du casier judiciaire' => 'Extrait du casier judiciaire',
-        'Attestation de travail' => 'Attestation de travail',
-        'Attestation de stage' => 'Attestation de stage',
-        'Attestation de présence' => 'Attestation de présence',
-        'Certificat de concubinage' => 'Certificat de concubinage',
-        'Certificat de nationalité' => 'Certificat de nationalité',
-        'Certificat d’origine' => 'Certificat d’origine',
-        'Registre de commerce / certificat de commerce' => 'Registre de commerce / certificat de commerce',
-        'Certificat d’inscription' => 'Certificat d’inscription',
-        'Bulletin de notes' => 'Bulletin de notes',
-        'Bulletin de notes (système/Baccalauréat marocain)' => 'Bulletin de notes (système/Baccalauréat marocain)',
-        'Copies supplémentaires/page' => 'Copies supplémentaires/page',
-
         'CERTIFICATS MÉDICAUX / PAGE' => 'CERTIFICATS MÉDICAUX / PAGE',
-        'Certificat médical' => 'Certificat médical',
-        'Autres documents médicaux' => 'Autres documents médicaux',
-
         'DOCUMENTS ADULAIRES / PAGE' => 'DOCUMENTS ADULAIRES / PAGE',
-        'Acte de mariage' => 'Acte de mariage',
-        'Acte de remariage' => 'Acte de remariage',
-        'Acte de divorce' => 'Acte de divorce',
-        'Acte de divorce répudiatif' => 'Acte de divorce répudiatif',
-        'Jugement de divorce' => 'Jugement de divorce',
-        'Jugement exécutoire' => 'Jugement exécutoire',
-        'Acte de non-remariage avant 2004' => 'Acte de non-remariage avant 2004',
-        'Acte de non-remariage après la famille 2004' => 'Acte de non-remariage après la famille 2004',
-        'Jugement d’authenticité (divers documents irrévocables)' => 'Jugement d’authenticité (divers documents irrévocables)',
-        'Additif / précisions' => 'Additif / précisions',
-        'Reconnaissance de paternité' => 'Reconnaissance de paternité',
-        'Dédissentement' => 'Dédissentement',
-        'Kafala' => 'Kafala',
-        'Acte de prise en charge' => 'Acte de prise en charge',
-        'Procuration' => 'Procuration',
-        'Remise d’enfants' => 'Remise d’enfants',
-        'Acte d’héritier' => 'Acte d’héritier',
-        'Inventaire successoral' => 'Inventaire successoral',
-        'Partage successoral' => 'Partage successoral',
-        'Acte d’achat / vente' => 'Acte d’achat / vente',
-
         'PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE' => 'PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE',
-        'Acte de naissance' => 'Acte de naissance',
-        'Certificat de capacité à mariage' => 'Certificat de capacité à mariage',
-        'Certificat de divorce' => 'Certificat de divorce',
-
         'DOSSIERS (240 mots / page)' => 'DOSSIERS (240 mots / page)',
-        'Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)' => 'Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)',
-        'Dossiers techniques' => 'Dossiers techniques',
+        'INTERPRÉTARIAT / SIMULTANÉ OU CONSÉCUTIF' => 'INTERPRÉTARIAT / SIMULTANÉ OU CONSÉCUTIF',
+    ],
 
-        'INTERPRÉTARIAT / SIMULTANÉ OU CONSÉCUTIF' => 'INTERPRÉTARIAT (SIMULTANÉ OU CONSÉCUTIF...)',
-        'Assemblées générales' => 'Assemblées générales',
-        'Conseils d’administration' => 'Conseils d’administration',
-        'Séances de réunions diverses' => 'Séances de réunions diverses',
-        'Débats aux audiences des tribunaux' => 'Débats aux audiences des tribunaux',
+    // --- Sous-types ---
+    'sous_types' => [
+
+        // Pièces administratives
+        'PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE' => [
+            "Certificat de résidence" => "Certificat de résidence",
+            "Attestation de célibat" => "Attestation de célibat",
+            "Extrait d’acte de naissance" => "Extrait d’acte de naissance",
+            "Copie intégrale d’acte de naissance" => "Copie intégrale d’acte de naissance",
+            "Extrait du casier judiciaire" => "Extrait du casier judiciaire",
+            "Fiche anthropometrique" => "Fiche anthropometrique",
+            "Attestation de travail" => "Attestation de travail",
+            "Attestation de parenté" => "Attestation de parenté",
+            "Certificat de concordance" => "Certificat de concordance",
+            "Certificat de propriété" => "Certificat de propriété",
+            "Inscription au registre du commerce" => "Inscription au registre du commerce",
+            "Certificat de scolarité/d’inscription" => "Certificat de scolarité/d’inscription",
+            "Bulletin de notes (semetre/Baccalauréat marocain)" => "Bulletin de notes (semestre/Baccalauréat marocain)",
+            "Bulletin de notes (mission)" => "Bulletin de notes (mission)",
+            "Copies supplémentaires/page" => "Copies supplémentaires/page",
+        ],
+
+        // Certificats médicaux
+        'CERTIFICATS MÉDICAUX / PAGE' => [
+            "Certificat médical ordinaire" => "Certificat médical ordinaire",
+            "Autres pièces médicales" => "Autres pièces médicales",
+        ],
+
+        // Documents adoulaires
+        'DOCUMENTS ADULAIRES / PAGE' => [
+            "Acte de mariage" => "Acte de mariage",
+            "Acte récognitif de mariage" => "Acte récognitif de mariage",
+            "Acte de mariage mixte" => "Acte de mariage mixte",
+            "Reprise en mariage" => "Reprise en mariage",
+            "Acte de divorce établi avant 2004" => "Acte de divorce établi avant 2004",
+            "Acte de divorce suivant le code de la famille 2004" => "Acte de divorce suivant le code de la famille 2004",
+            "Témoignages/Actes divers (divers irrévocalbles)" => "Témoignages/Actes divers (divers irrévocables)",
+            "Additif rectificatif" => "Additif rectificatif",
+            "Acte testimonial" => "Acte testimonial",
+            "Renonciation de parenté" => "Renonciation de parenté",
+            "Absence de conjoint" => "Absence de conjoint",
+            "Désistement" => "Désistement",
+            "Kafala" => "Kafala",
+            "Acte de prise en charge" => "Acte de prise en charge",
+            "Procuration" => "Procuration",
+            "Remise d’enfants" => "Remise d’enfants",
+            "Acte d’héritier" => "Acte d’héritier",
+            "Inventaire successoral" => "Inventaire successoral",
+            "Partage successoral" => "Partage successoral",
+            "Acte d’achat / vente" => "Acte d’achat / vente",
+            "Copies supplémentaires / page" => "Copies supplémentaires / page",
+        ],
+
+        // Pièces établies à l’étranger
+        'PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE' => [
+            "Copie intégrale d’acte de naissance" => "Copie intégrale d’acte de naissance",
+            "Acte de naissance" => "Acte de naissance",
+            "Certificat de capacité à mariage" => "Certificat de capacité à mariage",
+            "Certificat de divorce" => "Certificat de divorce",
+            "Extrait du casier judiciaire" => "Extrait du casier judiciaire",
+            "Attestation de célibat" => "Attestation de célibat",
+            "Certificat de résidence" => "Certificat de résidence",
+            "Acte de mariage" => "Acte de mariage",
+        ],
+
+        // Dossiers
+        'DOSSIERS (240 mots / page)' => [
+            "Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)" => "Dossiers juridiques (jugements – actes notariés – procès-verbaux – statuts)",
+            "Dossiers techniques" => "Dossiers techniques",
+        ],
+
+        // Interprétariat
+        'INTERPRÉTARIAT / SIMULTANÉ OU CONSÉCUTIF' => [
+            "Assemblées générales" => "Assemblées générales",
+            "Conseils d’administration" => "Conseils d’administration",
+            "Séances de conclusion d'actes" => "Séances de conclusion d'actes",
+            "Débats aux audiences des tribunaux" => "Débats aux audiences des tribunaux",
+        ],
     ]
 ];

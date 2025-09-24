@@ -4,6 +4,7 @@
 
 @section('content')
 <div class="container-fluid">
+
   <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
     <div class="col-md-10 d-flex justify-content-center">
       <div class="card shadow p-4 my-4" style="width: 100%; max-width: 900px;">
@@ -111,7 +112,6 @@
           <button type="button" class="btn btn-secondary " id="add_file_btn">
             + {{ __('demandeClient.ajouter_fichier') }}
           </button>
-
           <button type="submit" class="btn btn-primary ">{{ __('demandeClient.envoyer') }}</button>
 
         </form>

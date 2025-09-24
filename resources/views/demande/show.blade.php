@@ -10,8 +10,8 @@
         <h2 class="mb-4 text-center">{{ __('demande.detail_demande') }}</h2>
 
         <div class="row mb-3">
-            <div class="col-md-6"><strong>{{ __('demande.nom') }} :</strong> {{ $demande->nom }}</div>
-            <div class="col-md-6"><strong>{{ __('demande.prenom') }} :</strong> {{ $demande->prenom }}</div>
+            <div class="col-md-6"><strong>{{ __('demande.nom') }} :</strong> {{ $demande->nom_demandeur }}</div>
+            <div class="col-md-6"><strong>{{ __('demande.prenom') }} :</strong> {{ $demande->nom_titulaire }}</div>
         </div>
 
         <div class="row mb-3">

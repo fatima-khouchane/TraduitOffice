@@ -18,8 +18,8 @@
         </div>
 
         <!-- Tableau -->
-        <div style="max-width: 1200px; overflow-x:auto; margin: auto;">
-            <table class="table table-striped table-hover align-middle mb-0" style="width: 960px;">
+        <div class="table-responsive">
+             <table class="table table-striped table-hover align-middle mb-0">
                 <thead class="table-primary">
                     <tr>
                         <th>{{ __('demandes.nom_titulaire') }}
