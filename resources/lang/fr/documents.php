@@ -5,7 +5,7 @@ return [
     // --- Types principaux ---
     'types' => [
         'PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE' => 'PIÈCES ADMINISTRATIVES ORDINAIRES / PAGE',
-        'CERTIFICATS MÉDICAUX / PAGE' => 'CERTIFICATS MÉDICAUX / PAGE',
+        'CERTIFICATS_MÉDICAUX_PAGE' => 'CERTIFICATS MÉDICAUX / PAGE',
         'DOCUMENTS ADULAIRES / PAGE' => 'DOCUMENTS ADULAIRES / PAGE',
         'PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE' => 'PIÈCES ÉTABLIES À L’ÉTRANGER / PAGE',
         'DOSSIERS (240 mots / page)' => 'DOSSIERS (240 mots / page)',
@@ -34,8 +34,11 @@ return [
             "Copies supplémentaires/page" => "Copies supplémentaires/page",
         ],
 
+
+
+
         // Certificats médicaux
-        'CERTIFICATS MÉDICAUX / PAGE' => [
+        'CERTIFICATS_MÉDICAUX_PAGE' => [
             "Certificat médical ordinaire" => "Certificat médical ordinaire",
             "Autres pièces médicales" => "Autres pièces médicales",
         ],

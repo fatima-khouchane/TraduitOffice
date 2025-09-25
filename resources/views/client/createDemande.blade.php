@@ -122,15 +122,28 @@
 @endsection
 
 @push('scripts')
+
 <script>
-  const translations = @json(__('documents.types'));
-  const sousTypes = @json($documents);
 
-  function translate(key) {
-    return translations[key] || key;
-  }
+    const allTranslations = {
+    'fr': @json(__('documents.types')),
+    'fr_sous': @json(__('documents.sous_types')),
+    'en': @json(__('documents.types', [], 'en')),
+    'en_sous': @json(__('documents.sous_types', [], 'en')),
+    'ar': @json(__('documents.types', [], 'ar')),
+    'ar_sous': @json(__('documents.sous_types', [], 'ar')),
+};
 
-  function updateSousType(select) {
+let currentLang = '{{ app()->getLocale() }}';
+
+function translate(key, type = null) {
+    if (type && allTranslations[currentLang + '_sous'][type] && allTranslations[currentLang + '_sous'][type][key]) {
+        return allTranslations[currentLang + '_sous'][type][key];
+    }
+    return allTranslations[currentLang][key] || key;
+}
+
+function updateSousType(select) {
     const group = select.closest('.document_group');
     const sousSelect = group.querySelector('.sous_type_select');
     const labelInput = group.querySelector('.categorie_label');
@@ -141,37 +154,31 @@
     const type = select.value;
     labelInput.value = type;
 
-    if (sousTypes[type]) {
-      sousTypes[type].forEach(itemKey => {
-        const opt = document.createElement('option');
-        opt.value = itemKey;
-        opt.textContent = translate(itemKey);
-        sousSelect.appendChild(opt);
-      });
-      sousSelect.style.display = 'block';
+    if (allTranslations[currentLang + '_sous'][type]) {
+        Object.keys(allTranslations[currentLang + '_sous'][type]).forEach(key => {
+            const opt = document.createElement('option');
+            opt.value = key; // conserver la clé comme valeur
+            opt.textContent = translate(key, type); // traduction selon langue
+            sousSelect.appendChild(opt);
+        });
+        sousSelect.style.display = 'block';
     }
-  }
+}
 
-  function addCategorieChangeListener(select) {
-    select.addEventListener('change', function () {
-      updateSousType(this);
+// Attacher le listener aux selects existants
+document.querySelectorAll('.categorie_select').forEach(select => {
+    updateSousType(select); // remplissage initial si valeur existante
+    select.addEventListener('change', function() {
+        updateSousType(this);
     });
-  }
+});
 
-  // Initial attach
-  document.querySelectorAll('.categorie_select').forEach(select => {
-    addCategorieChangeListener(select);
-    if (select.value !== '') {
-      updateSousType(select);
-    }
-  });
-
-  document.getElementById('add_document').addEventListener('click', () => {
+// Ajouter un nouveau document
+document.getElementById('add_document').addEventListener('click', () => {
     const container = document.getElementById('documents_container');
     const original = container.querySelector('.document_group');
     const clone = original.cloneNode(true);
 
-    // Reset values
     const categorieSelect = clone.querySelector('.categorie_select');
     const labelInput = clone.querySelector('.categorie_label');
     const sousSelect = clone.querySelector('.sous_type_select');
@@ -181,44 +188,45 @@
     sousSelect.innerHTML = '';
     sousSelect.style.display = 'none';
 
-    addCategorieChangeListener(categorieSelect);
+    categorieSelect.addEventListener('change', function() {
+        updateSousType(this);
+    });
 
     const removeBtn = document.createElement('button');
     removeBtn.type = 'button';
     removeBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
     removeBtn.textContent = '{{ __("demandeClient.supprimer") }}';
-    removeBtn.addEventListener('click', () => {
-      clone.remove();
-    });
+    removeBtn.addEventListener('click', () => clone.remove());
 
     clone.appendChild(removeBtn);
     container.appendChild(clone);
-  });
+});
 
-  document.getElementById('add_file_btn').addEventListener('click', () => {
+// Ajouter un nouveau champ fichier
+document.getElementById('add_file_btn').addEventListener('click', () => {
     const container = document.getElementById('fichiers_container');
+    const original = container.querySelector('input[type="file"]');
+    const clone = original.cloneNode(true);
 
+    // Réinitialiser la valeur
+    clone.value = "";
+
+    // Créer bouton supprimer
     const wrapper = document.createElement('div');
-    wrapper.classList.add('d-flex', 'align-items-center', 'gap-2', 'mt-2');
+    wrapper.classList.add('mb-3');
+    wrapper.appendChild(clone);
 
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.name = 'fichiers[]';
-    input.classList.add('form-control');
-    input.accept = 'application/pdf,image/*';
-
-    const removeBtn = document.createElement('button');
-    removeBtn.type = 'button';
-    removeBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm');
-    removeBtn.textContent = '✖';
-
-    removeBtn.addEventListener('click', () => {
-      wrapper.remove();
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
+    cancelBtn.innerText = '✖ Supprimer';
+    cancelBtn.addEventListener('click', () => {
+        wrapper.remove();
     });
 
-    wrapper.appendChild(input);
-    wrapper.appendChild(removeBtn);
+    wrapper.appendChild(cancelBtn);
     container.appendChild(wrapper);
-  });
+});
+
 </script>
 @endpush

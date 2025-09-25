@@ -28,8 +28,11 @@ class DemandesExport implements FromCollection, WithHeadings, WithStyles, WithEv
             $documents = is_string($demande->documents) ? json_decode($demande->documents, true) : $demande->documents;
 
             $sousTypes = collect($documents)->map(function ($doc) {
-                return __('documents.types.' . $doc['sous_type']) ?? $doc['sous_type'];
-            })->implode(', ');
+                $categorie = __('documents.types.' . $doc['categorie']) ?? $doc['categorie'];
+                $sousType = __('documents.sous_types.' . $doc['categorie'] . '.' . $doc['sous_type']) ?? $doc['sous_type'];
+                return $categorie . ': ' . $sousType;
+            })->implode("\n"); // chaque doc sur une nouvelle ligne
+
 
             return [
                 'nom_titulaire' => $demande->nom_titulaire,

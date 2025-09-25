@@ -40,6 +40,8 @@ return [
             "Autres pièces médicales" => "وثائق طبية أخرى",
         ],
 
+
+
         // وثائق عدلية
         'DOCUMENTS ADULAIRES / PAGE' => [
             "Acte de mariage" => "عقد الزواج",

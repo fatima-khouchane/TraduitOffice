@@ -215,6 +215,33 @@ document.getElementById('add_document').addEventListener('click', () => {
     container.appendChild(clone);
 });
 
+
+// Ajouter un nouveau champ fichier
+document.getElementById('add_file_btn').addEventListener('click', () => {
+    const container = document.getElementById('fichiers_container');
+    const original = container.querySelector('input[type="file"]');
+    const clone = original.cloneNode(true);
+
+    // Réinitialiser la valeur
+    clone.value = "";
+
+    // Créer bouton supprimer
+    const wrapper = document.createElement('div');
+    wrapper.classList.add('mb-3');
+    wrapper.appendChild(clone);
+
+    const cancelBtn = document.createElement('button');
+    cancelBtn.type = 'button';
+    cancelBtn.classList.add('btn', 'btn-outline-danger', 'btn-sm', 'mt-2');
+    cancelBtn.innerText = '✖ Supprimer';
+    cancelBtn.addEventListener('click', () => {
+        wrapper.remove();
+    });
+
+    wrapper.appendChild(cancelBtn);
+    container.appendChild(wrapper);
+});
+
 </script>
 
 @endsection
