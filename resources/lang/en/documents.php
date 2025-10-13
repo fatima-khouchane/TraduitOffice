@@ -29,7 +29,7 @@ return [
             "Certificat de propriété" => "Property Certificate",
             "Inscription au registre du commerce" => "Commercial Register Registration",
             "Certificat de scolarité/d’inscription" => "School/Enrollment Certificate",
-            "Bulletin de notes (semetre/Baccalauréat marocain)" => "Transcript (Semester / Moroccan Baccalaureate)",
+            "Bulletin de notes (semestre/Baccalauréat marocain)" => "Transcript (Semester / Moroccan Baccalaureate)",
             "Bulletin de notes (mission)" => "Transcript (Mission School)",
             "Copies supplémentaires/page" => "Additional Copies / Page",
         ],

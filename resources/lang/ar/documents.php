@@ -29,7 +29,7 @@ return [
             "Certificat de propriété" => "شهادة الملكية",
             "Inscription au registre du commerce" => "التسجيل في السجل التجاري",
             "Certificat de scolarité/d’inscription" => "شهادة مدرسية / التسجيل",
-            "Bulletin de notes (semetre/Baccalauréat marocain)" => "بيان النقط (الفصل / البكالوريا المغربية)",
+            "Bulletin de notes (semestre/Baccalauréat marocain)" => "بيان النقط (الفصل / البكالوريا المغربية)",
             "Bulletin de notes (mission)" => "بيان النقط (مدارس البعثة)",
             "Copies supplémentaires/page" => "نسخ إضافية / صفحة",
         ],

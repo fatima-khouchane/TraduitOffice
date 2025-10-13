@@ -326,7 +326,6 @@ class DemandeController extends Controller
 
         $demandes = Demande::where('status', 'terminee')
             ->whereBetween('date_fin', [$start, $end])
-            ->with('fichiers')
             ->get();
 
         $total = $demandes->sum('prix_total');

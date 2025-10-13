@@ -138,19 +138,34 @@ Route::get('/lang/{locale}', function ($locale) {
     return redirect()->back();
 })->name('lang.switch');
 
+
 Route::get('/export-demandes', function (Request $request) {
     $mois = $request->query('mois'); // Exemple: 2025-07
+    $search = $request->query('search');
+    $filterSaisiePar = $request->query('filterSaisiePar');
+
+    $query = Demande::query()->where('status', 'terminee');
 
     if ($mois) {
         $year = substr($mois, 0, 4);
         $month = substr($mois, 5, 2);
-
-        $demandes = Demande::whereYear('date_debut', $year)
-            ->whereMonth('date_debut', $month)
-            ->get();
-    } else {
-        $demandes = Demande::all();
+        $query->whereYear('date_debut', $year)
+            ->whereMonth('date_debut', $month);
     }
 
-    return Excel::download(new DemandesExport($demandes), 'demandes_' . $mois . '.xlsx');
+    if ($filterSaisiePar && $filterSaisiePar !== 'all') {
+        $query->where('is_online', $filterSaisiePar === 'online' ? 1 : 0);
+    }
+
+    if ($search) {
+        $query->where(function ($q) use ($search) {
+            $q->where('nom_titulaire', 'like', "%$search%")
+                ->orWhere('nom_demandeur', 'like', "%$search%")
+                ->orWhere('cin', 'like', "%$search%");
+        });
+    }
+
+    $demandes = $query->get();
+
+    return Excel::download(new DemandesExport($demandes), 'demandes_' . ($mois ?? 'all') . '.xlsx');
 })->name('export.demandes');

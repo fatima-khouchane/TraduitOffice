@@ -29,7 +29,7 @@ return [
             "Certificat de propriété",
             "Inscription au registre du commerce",
             "Certificat de scolarité/d’inscription",
-            "Bulletin de notes (semetre/Baccalauréat marocain)",
+            "Bulletin de notes (semestre/Baccalauréat marocain)",
             "Bulletin de notes (mission)",
             "Copies supplémentaires/page",
         ],
